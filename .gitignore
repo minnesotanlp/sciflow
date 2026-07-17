@@ -1,0 +1,30 @@
+node_modules
+
+# Output
+.output
+.vercel
+.netlify
+.wrangler
+/.svelte-kit
+/build
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Reference screenshots of ParticipantApp (not served by the site)
+Screenshot*.png
+
+# Local copy of the data-collection tool (separate repo, not part of the site)
+scholawrite2-chi-data-collection-tool/
+scholawrite2-chi-data-collection-tool*.zip
+
+# Env
+.env
+.env.*
+!.env.example
+!.env.test
+
+# Vite
+vite.config.js.timestamp-*
+vite.config.ts.timestamp-*
