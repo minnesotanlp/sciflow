@@ -19,7 +19,7 @@
         },
         {
             name: "Luan Chau",
-            avatar: `${base}/members/luan-chau.svg`,
+            avatar: `${base}/members/luan-chau.jpg`,
             role: "Researcher",
             sub: "Cognitive scientist",
             accent: "var(--sky)",
