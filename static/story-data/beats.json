@@ -1,0 +1,861 @@
+[
+  {
+    "source": "overleaf",
+    "start": "2026-04-10T06:52:53.330Z",
+    "end": "2026-04-13T09:00:43.855Z",
+    "actor": null,
+    "target": "Related Work Draft",
+    "label": "Edited \"Related Work Draft\" (+1/-0)",
+    "content": {
+      "added": 1,
+      "removed": 0,
+      "diff": [
+        {
+          "marker": "+",
+          "text": "added section stub for interactive writing support tools (§2.3)"
+        }
+      ]
+    },
+    "source_refs": {
+      "raw_file": "raw/overleaf.json",
+      "index": 0
+    },
+    "duration_sec": 266871
+  },
+  {
+    "source": "google_drive",
+    "start": "2026-04-13T09:00:43.855Z",
+    "end": "2026-04-13T10:17:12.533Z",
+    "actor": null,
+    "target": "Participant Recruitment Tracker",
+    "label": "Edited \"Participant Recruitment Tracker\" (+3/-0)",
+    "content": {
+      "added": 3,
+      "removed": 0,
+      "diff": [
+        {
+          "marker": "+",
+          "text": "P07 – confirmed, scheduled for 4/18"
+        },
+        {
+          "marker": "+",
+          "text": "P08 – emailed consent form, waiting"
+        },
+        {
+          "marker": "+",
+          "text": ""
+        }
+      ]
+    },
+    "source_refs": {
+      "raw_file": "raw/google_drive.json",
+      "index": 1
+    },
+    "duration_sec": 4589
+  },
+  {
+    "source": "claude_code",
+    "start": "2026-04-13T10:10:52.207Z",
+    "end": "2026-04-13T10:41:29.266Z",
+    "actor": null,
+    "target": "session a3f2c891",
+    "label": "Coding with Claude Code — for the sync module i still have some open issues that i haven’t sorted out. help me frame the problem: what exactly is wrong, propose how …",
+    "content": {
+      "prompt": "for the sync module i still have some open issues that i haven’t sorted out. help me frame the problem: what exactly is wrong, propose how …",
+      "plan": null,
+      "approved": false,
+      "diff_stats": {
+        "added": 161,
+        "removed": 91
+      },
+      "steps": [
+        {
+          "lane": "user_prompt",
+          "summary": "for the sync module i still have some open issues that i haven’t sorted out. help me frame the problem: what exactly is wrong, propose how …",
+          "editType": null
+        },
+        {
+          "lane": "assistant_reply",
+          "summary": "Here’s each issue laid out with my suggested resolution, based on what I confirmed in the codebase earlier. ## 1. Timer trigger — app activ…",
+          "editType": null
+        },
+        {
+          "lane": "user_prompt",
+          "summary": "create a dedicated plan for the timer-based triggering. in it, list all existing mechanisms for data capture, all the edge cases. and then a…",
+          "editType": null
+        },
+        {
+          "lane": "tool_call",
+          "summary": "Read /Users/dev/Projects/workspace/capture-tool/src/core/TimerBasedCaptureMonitor.ts",
+          "editType": "file_read"
+        }
+      ],
+      "extra_steps_count": 46
+    },
+    "source_refs": {
+      "raw_file": "raw/claude_code.json",
+      "index": 0
+    },
+    "duration_sec": 1837
+  },
+  {
+    "source": "github",
+    "start": "2026-04-13T10:17:12.533Z",
+    "end": "2026-04-13T19:44:20.796Z",
+    "actor": null,
+    "target": "capture-tool#main",
+    "label": "Pushed 2 commits to capture-tool#main",
+    "content": {
+      "commits": [
+        {
+          "sha": "d4a1c07",
+          "message": "refactor: extract timer logic into standalone module"
+        },
+        {
+          "sha": "e8b3f19",
+          "message": "fix: prevent duplicate triggers when app regains focus"
+        }
+      ]
+    },
+    "source_refs": {
+      "raw_file": "raw/github.json",
+      "index": 0
+    },
+    "duration_sec": 34028
+  },
+  {
+    "source": "claude_code",
+    "start": "2026-04-13T15:55:20.811Z",
+    "end": "2026-04-13T17:00:43.099Z",
+    "actor": null,
+    "target": "session a3f2c891",
+    "label": "Coding with Claude Code — condense the plan for all the finished items",
+    "content": {
+      "prompt": "condense the plan for all the finished items",
+      "plan": "{\"todos\": [{\"content\": \"A: Freeze layout grid + input selector only during active capture (not while idle)\", \"status\": \"in_progress\", \"activeForm\": \"Freezing layout grid/input selector during active capture\"}, {\"content\": \"B: Add PendingTimerTrigger to CaptureSessionManager + route scheduled starts through Capture tab\", \"status\": \"pending\", \"activeForm\": \"Adding pendingTimerTrigger and routing scheduled starts through Capture tab\"}, {\"content\": \"C: Update start confirmation wording to account for delayed launch\", \"status\": \"pending\", \"activeForm\": \"Updating start confirmation for delayed launch\"}, {\"content\": \"D: TimerBasedCaptureMonitor as ObservableObject + currentActiveTask, inject into environment, manual start auto-labels\", \"status\": \"pending\", \"activeForm\": \"Injecting currentActiveTask and manual-start auto-labeling\"}, {\"content\": \"E: Background notification on auto-finish\", \"status\": \"pending\", \"activeForm\": \"Adding background notification on auto-finish\"}, {\"content\": \"F: Auto-finish reads live task end time, not cached snapshot\", \"status\": \"pending\", \"activeForm\": \"Switching auto-finish to live task lookup\"}, {\"content\": \"G: Incremental output-metadata.json writes (isDone flag)\", \"status\": \"pending\", \"activeForm\": \"Adding incremental output-metadata.json writes\"}, {\"content\": \"build + validate verification\", \"status\": \"pending\", \"activeForm\": \"Running build and validation checks\"}]}",
+      "approved": false,
+      "diff_stats": {
+        "added": 967,
+        "removed": 626
+      },
+      "steps": [
+        {
+          "lane": "assistant_reply",
+          "summary": "Let me revise the doc with those clarifications — rolling back the scheduling recommendation, and spelling out the selector/freeze behavior.",
+          "editType": null
+        },
+        {
+          "lane": "tool_call",
+          "summary": "Ran: grep -n \"^\\*\\*3\\. \\\"Should a prompt\\|^\\*\\*1\\. \\\"When the user is mid\\|^\\*\\*4\\. \\\"Add a layout\" /Us…",
+          "editType": "shell_command"
+        },
+        {
+          "lane": "tool_call",
+          "summary": "Read /Users/dev/.claude/plans/sure-lets-go-bouncing-marble.md",
+          "editType": "file_read"
+        },
+        {
+          "lane": "tool_call",
+          "summary": "Edited /Users/dev/.claude/plans/sure-lets-go-bouncing-marble.md",
+          "editType": "file_modify"
+        }
+      ],
+      "extra_steps_count": 240
+    },
+    "source_refs": {
+      "raw_file": "raw/claude_code.json",
+      "index": 1
+    },
+    "duration_sec": 3922
+  },
+  {
+    "source": "github",
+    "start": "2026-04-13T17:05:10.000Z",
+    "end": "2026-04-13T17:12:38.000Z",
+    "actor": null,
+    "target": "capture-tool#12",
+    "label": "Opened PR #12 in capture-tool",
+    "content": {
+      "action": "opened",
+      "title": "feat: lock layout controls during active capture session",
+      "diff_stats": {
+        "added": 84,
+        "removed": 31
+      },
+      "reviewers": [
+        "collaborator-a"
+      ],
+      "files_changed": 3,
+      "diff_snippet": [
+        {
+          "file": "src/components/LayoutGrid.tsx",
+          "changes": [
+            {
+              "marker": "+",
+              "text": "  const isCapturing = useCaptureStatus();"
+            },
+            {
+              "marker": "+",
+              "text": ""
+            },
+            {
+              "marker": "+",
+              "text": "  // Disable drag-and-drop reordering while a session is active"
+            },
+            {
+              "marker": "+",
+              "text": "  const handleDragStart = useCallback((e: DragEvent) => {"
+            },
+            {
+              "marker": "+",
+              "text": "    if (isCapturing) {"
+            },
+            {
+              "marker": "+",
+              "text": "      e.preventDefault();"
+            },
+            {
+              "marker": "+",
+              "text": "      return;"
+            },
+            {
+              "marker": "+",
+              "text": "    }"
+            },
+            {
+              "marker": "+",
+              "text": "    onDragStart(e);"
+            },
+            {
+              "marker": "+",
+              "text": "  }, [isCapturing, onDragStart]);"
+            },
+            {
+              "marker": "-",
+              "text": "  const handleDragStart = useCallback(onDragStart, [onDragStart]);"
+            }
+          ]
+        },
+        {
+          "file": "src/components/InputSelector.tsx",
+          "changes": [
+            {
+              "marker": "-",
+              "text": "export function InputSelector({ sources, onSelect }: Props) {"
+            },
+            {
+              "marker": "+",
+              "text": "export function InputSelector({ sources, onSelect, disabled }: Props) {"
+            },
+            {
+              "marker": " ",
+              "text": "  return ("
+            },
+            {
+              "marker": "-",
+              "text": "    <Dropdown items={sources} onChange={onSelect}>"
+            },
+            {
+              "marker": "+",
+              "text": "    <Dropdown items={sources} onChange={onSelect} disabled={disabled}>"
+            },
+            {
+              "marker": " ",
+              "text": "      {(item) => <SourceLabel source={item} />}"
+            },
+            {
+              "marker": " ",
+              "text": "    </Dropdown>"
+            }
+          ]
+        },
+        {
+          "file": "src/hooks/useCaptureStatus.ts",
+          "changes": [
+            {
+              "marker": "+",
+              "text": "import { useContext } from 'react';"
+            },
+            {
+              "marker": "+",
+              "text": "import { CaptureContext } from '../context/CaptureContext';"
+            },
+            {
+              "marker": "+",
+              "text": ""
+            },
+            {
+              "marker": "+",
+              "text": "/**"
+            },
+            {
+              "marker": "+",
+              "text": " * Returns true when a capture session is actively recording."
+            },
+            {
+              "marker": "+",
+              "text": " * Paused sessions return false so the UI stays interactive."
+            },
+            {
+              "marker": "+",
+              "text": " */"
+            },
+            {
+              "marker": "+",
+              "text": "export function useCaptureStatus(): boolean {"
+            },
+            {
+              "marker": "+",
+              "text": "  const { state } = useContext(CaptureContext);"
+            },
+            {
+              "marker": "+",
+              "text": "  return state.status === 'capturing';"
+            },
+            {
+              "marker": "+",
+              "text": "}"
+            }
+          ]
+        }
+      ]
+    },
+    "source_refs": {
+      "raw_file": "raw/github.json",
+      "index": 2
+    },
+    "duration_sec": 448
+  },
+  {
+    "source": "claude_code",
+    "start": "2026-04-13T17:24:41.963Z",
+    "end": "2026-04-13T17:24:53.672Z",
+    "actor": null,
+    "target": "session a3f2c891",
+    "label": "Coding with Claude Code — how to launch the tool",
+    "content": {
+      "prompt": "how to launch the tool",
+      "plan": null,
+      "approved": true,
+      "diff_stats": {
+        "added": 0,
+        "removed": 0
+      },
+      "steps": [
+        {
+          "lane": "user_prompt",
+          "summary": "how to launch the tool",
+          "editType": null
+        },
+        {
+          "lane": "tool_call",
+          "summary": "Ran: cd /Users/dev/Projects/workspace/capture-tool && grep -n \"main\\|entry…",
+          "editType": "shell_command"
+        },
+        {
+          "lane": "assistant_reply",
+          "summary": "You can start the tool by running the main entry point from the project root…",
+          "editType": null
+        }
+      ],
+      "extra_steps_count": 0
+    },
+    "source_refs": {
+      "raw_file": "raw/claude_code.json",
+      "index": 2
+    },
+    "duration_sec": 12
+  },
+  {
+    "source": "claude_code",
+    "start": "2026-04-13T19:38:20.643Z",
+    "end": "2026-04-13T19:38:20.647Z",
+    "actor": null,
+    "target": "session a3f2c891",
+    "label": "Coding with Claude Code — [Request interrupted by user for tool use]",
+    "content": {
+      "prompt": "[Request interrupted by user for tool use]",
+      "plan": null,
+      "approved": false,
+      "diff_stats": {
+        "added": 0,
+        "removed": 0
+      },
+      "steps": [
+        {
+          "lane": "user_prompt",
+          "summary": "[Request interrupted by user for tool use]",
+          "editType": null
+        }
+      ],
+      "extra_steps_count": 0
+    },
+    "source_refs": {
+      "raw_file": "raw/claude_code.json",
+      "index": 3
+    },
+    "duration_sec": 0
+  },
+  {
+    "source": "recording",
+    "start": "2026-04-13T19:44:05.583Z",
+    "end": "2026-04-13T19:49:06.265Z",
+    "actor": null,
+    "target": "USER: deploy videos",
+    "label": "Recorded (3 windows) — USER: deploy videos",
+    "content": {
+      "segments": [
+        {
+          "segment_start": 1776109445583,
+          "segment_end": 1776109746265,
+          "gif_path": "recordings/gifs/session-1784470865582/1784470865583.gif"
+        }
+      ]
+    },
+    "source_refs": {
+      "raw_file": "raw/recording.json",
+      "index": 0
+    },
+    "duration_sec": 301
+  },
+  {
+    "source": "google_drive",
+    "start": "2026-04-13T19:44:20.796Z",
+    "end": "2026-04-13T19:45:31.714Z",
+    "actor": null,
+    "target": "Task Board",
+    "label": "Edited \"Task Board\" (+1/-1)",
+    "content": {
+      "added": 1,
+      "removed": 1,
+      "diff": [
+        {
+          "marker": "-",
+          "text": "begin session → navigate to capture view → [TODO] "
+        },
+        {
+          "marker": "+",
+          "text": "begin session → navigate to capture view → [TODO] lock all controls before clicking start → may need to switch to modal overlay like a confirmation dialog"
+        }
+      ]
+    },
+    "source_refs": {
+      "raw_file": "raw/google_drive.json",
+      "index": 3
+    },
+    "duration_sec": 71
+  },
+  {
+    "source": "google_drive",
+    "start": "2026-04-13T19:45:31.714Z",
+    "end": "2026-04-13T20:56:59.943Z",
+    "actor": null,
+    "target": "Task Board",
+    "label": "Edited \"Task Board\" (+1/-0)",
+    "content": {
+      "added": 1,
+      "removed": 0,
+      "diff": [
+        {
+          "marker": "+",
+          "text": "stop capture → the blue highlight border persists"
+        }
+      ]
+    },
+    "source_refs": {
+      "raw_file": "raw/google_drive.json",
+      "index": 4
+    },
+    "duration_sec": 4288
+  },
+  {
+    "source": "recording",
+    "start": "2026-04-13T19:54:06.987Z",
+    "end": "2026-04-13T19:59:07.552Z",
+    "actor": null,
+    "target": "USER: deploy videos",
+    "label": "Recorded (3 windows) — USER: deploy videos",
+    "content": {
+      "segments": [
+        {
+          "segment_start": 1776110046987,
+          "segment_end": 1776110347552,
+          "gif_path": "recordings/gifs/session-1784470865582/1784471466987.gif"
+        }
+      ]
+    },
+    "source_refs": {
+      "raw_file": "raw/recording.json",
+      "index": 2
+    },
+    "duration_sec": 301
+  },
+  {
+    "source": "recording",
+    "start": "2026-04-13T20:14:08.689Z",
+    "end": "2026-04-13T20:19:09.084Z",
+    "actor": null,
+    "target": "USER: deploy videos",
+    "label": "Recorded (3 windows) — USER: deploy videos",
+    "content": {
+      "segments": [
+        {
+          "segment_start": 1776111248689,
+          "segment_end": 1776111549084,
+          "gif_path": "recordings/gifs/session-1784470865582/1784472668689.gif"
+        }
+      ]
+    },
+    "source_refs": {
+      "raw_file": "raw/recording.json",
+      "index": 6
+    },
+    "duration_sec": 300
+  },
+  {
+    "source": "recording",
+    "start": "2026-04-13T20:19:09.085Z",
+    "end": "2026-04-13T20:24:09.452Z",
+    "actor": null,
+    "target": "USER: deploy videos",
+    "label": "Recorded (3 windows) — USER: deploy videos",
+    "content": {
+      "segments": [
+        {
+          "segment_start": 1776111549085,
+          "segment_end": 1776111849452,
+          "gif_path": "recordings/gifs/session-1784470865582/1784472969085.gif"
+        }
+      ]
+    },
+    "source_refs": {
+      "raw_file": "raw/recording.json",
+      "index": 7
+    },
+    "duration_sec": 300
+  },
+  {
+    "source": "recording",
+    "start": "2026-04-13T20:24:09.452Z",
+    "end": "2026-04-13T20:29:10.308Z",
+    "actor": null,
+    "target": "USER: deploy videos",
+    "label": "Recorded (3 windows) — USER: deploy videos",
+    "content": {
+      "segments": [
+        {
+          "segment_start": 1776111849452,
+          "segment_end": 1776112150308,
+          "gif_path": "recordings/gifs/session-1784470865582/1784473269452.gif"
+        }
+      ]
+    },
+    "source_refs": {
+      "raw_file": "raw/recording.json",
+      "index": 8
+    },
+    "duration_sec": 301
+  },
+  {
+    "source": "overleaf",
+    "start": "2026-04-13T20:56:59.943Z",
+    "end": "2026-04-14T18:22:17.764Z",
+    "actor": null,
+    "target": "Related Work Draft",
+    "label": "Edited \"Related Work Draft\" (+2/-0)",
+    "content": {
+      "added": 2,
+      "removed": 0,
+      "diff": [
+        {
+          "marker": "+",
+          "text": "Zheng et al. (2024) instrument editor sessions with keystroke-level replay; differs from our approach in that they do not capture cross-application context"
+        },
+        {
+          "marker": "+",
+          "text": "TODO: compare granularity of behavioral signals across Table 1 systems"
+        }
+      ]
+    },
+    "source_refs": {
+      "raw_file": "raw/overleaf.json",
+      "index": 1
+    },
+    "duration_sec": 77118
+  },
+  {
+    "source": "claude_code",
+    "start": "2026-04-13T20:58:16.892Z",
+    "end": "2026-04-13T21:33:02.480Z",
+    "actor": null,
+    "target": "session a3f2c891",
+    "label": "Coding with Claude Code — have i deployed the changes for the remove-entry backend?",
+    "content": {
+      "prompt": "have i deployed the changes for the remove-entry backend?",
+      "plan": "{\"todos\": [{\"content\": \"Rewrite handler.mjs: remove clearEntry/clearBatch, add submitRemoval + email notification\", \"status\": \"completed\", \"activeForm\": \"Rewriting handler.mjs removal-request logic\"}, {\"content\": \"Update infra/template.yaml: remove old IAM + legacy routes, add RemovalRequestApi + email policy + env var\", \"status\": \"completed\", \"activeForm\": \"Updating infra/template.yaml\"}, {\"content\": \"Add email SDK dependency to data-reader package.json\", \"status\": \"completed\", \"activeForm\": \"Adding email SDK dependency\"}, {\"content\": \"Rewrite DataReaderAPIClient: replace clearEntry/clearBatch with submitRemoval\", \"status\": \"completed\", \"activeForm\": \"Rewriting DataReaderAPIClient\"}, {\"content\": \"Rewrite ConfirmDeleteDialog into RemovalRequestDialog\", \"status\": \"completed\", \"activeForm\": \"Rewriting RemovalRequestDialog\"}, {\"content\": \"Update PlaybackView to use new dialog + submitRemoval calls\", \"status\": \"completed\", \"activeForm\": \"Updating PlaybackView\"}, {\"content\": \"build + validate verification\", \"status\": \"completed\", \"activeForm\": \"Running build verification\"}, {\"content\": \"Split sender/recipient: use ops@example.org as SENDER_EMAIL, admin@example.org as recipient\", \"status\": \"completed\", \"activeForm\": \"Splitting sender/recipient emails\"}, {\"content\": \"User: verify ops@example.org as email identity, then deploy + re-test email flow\", \"status\": \"pending\", \"activeForm\": \"Waiting on user email verification of sender + redeploy\"}]}",
+      "approved": true,
+      "diff_stats": {
+        "added": 47,
+        "removed": 32
+      },
+      "steps": [
+        {
+          "lane": "assistant_reply",
+          "summary": "No response requested.",
+          "editType": null
+        },
+        {
+          "lane": "user_prompt",
+          "summary": "have i deployed the changes for the remove-entry backend?",
+          "editType": null
+        },
+        {
+          "lane": "assistant_reply",
+          "summary": "No — only the local build has been run so far. The deploy hasn’t happened, so none of the removal-request changes are live…",
+          "editType": null
+        },
+        {
+          "lane": "user_prompt",
+          "summary": "File with same data already exists at 8a4b1e9d03c17f5b2e0a6d8cc912ef44.template, skipping upload Waiting for changeset to be created.. Error…",
+          "editType": null
+        }
+      ],
+      "extra_steps_count": 39
+    },
+    "source_refs": {
+      "raw_file": "raw/claude_code.json",
+      "index": 4
+    },
+    "duration_sec": 2086
+  },
+  {
+    "source": "slack",
+    "start": "2026-04-14T00:06:49.105Z",
+    "end": "2026-04-14T00:06:49.105Z",
+    "actor": "Mentor",
+    "target": "#C07KM42R9XP",
+    "label": "1 Slack message in #C07KM42R9XP",
+    "content": {
+      "messages": [
+        {
+          "sender": "Mentor",
+          "text": "It would be nice if we could display this kind of live dashboard view of resear"
+        }
+      ]
+    },
+    "source_refs": {
+      "raw_file": "raw/slack.json",
+      "index": [
+        0
+      ]
+    },
+    "duration_sec": 0
+  },
+  {
+    "source": "google_drive",
+    "start": "2026-04-14T09:30:12.000Z",
+    "end": "2026-04-14T09:47:55.000Z",
+    "actor": null,
+    "target": "Weekly Sync Notes",
+    "label": "Edited \"Weekly Sync Notes\" (+4/-0)",
+    "content": {
+      "added": 4,
+      "removed": 0,
+      "diff": [
+        {
+          "marker": "+",
+          "text": "— mentor wants live dashboard for pilot data by end of month"
+        },
+        {
+          "marker": "+",
+          "text": "— discussed dropping P03 from analysis (incomplete sessions)"
+        },
+        {
+          "marker": "+",
+          "text": "— next step: finish deletion-request backend then focus on visualization"
+        },
+        {
+          "marker": "+",
+          "text": ""
+        }
+      ]
+    },
+    "source_refs": {
+      "raw_file": "raw/google_drive.json",
+      "index": 7
+    },
+    "duration_sec": 1063
+  },
+  {
+    "source": "claude_code",
+    "start": "2026-04-14T18:20:25.336Z",
+    "end": "2026-04-14T18:21:36.613Z",
+    "actor": null,
+    "target": "session a3f2c891",
+    "label": "Coding with Claude Code — <task-notification> <task-id>c7d1fa3bp</task-id> <tool-use-id>toolu_01Hv9BKLNfRs57Y66Q9TzMWX</tool-use-id> <status>stopped</status> <summary…",
+    "content": {
+      "prompt": "<task-notification> <task-id>c7d1fa3bp</task-id> <tool-use-id>toolu_01Hv9BKLNfRs57Y66Q9TzMWX</tool-use-id> <status>stopped</status> <summary…",
+      "plan": null,
+      "approved": false,
+      "diff_stats": {
+        "added": 0,
+        "removed": 0
+      },
+      "steps": [
+        {
+          "lane": "assistant_reply",
+          "summary": "No response requested.",
+          "editType": null
+        },
+        {
+          "lane": "user_prompt",
+          "summary": "<task-notification> <task-id>c7d1fa3bp</task-id> <tool-use-id>toolu_01Hv9BKLNfRs57Y66Q9TzMWX</tool-use-id> <status>stopped</status> <summary…",
+          "editType": null
+        },
+        {
+          "lane": "user_prompt",
+          "summary": "how to run the tool",
+          "editType": null
+        },
+        {
+          "lane": "tool_call",
+          "summary": "Ran: cd /Users/dev/Projects/workspace/capture-tool && npm start…",
+          "editType": "shell_command"
+        }
+      ],
+      "extra_steps_count": 1
+    },
+    "source_refs": {
+      "raw_file": "raw/claude_code.json",
+      "index": 5
+    },
+    "duration_sec": 71
+  },
+  {
+    "source": "github",
+    "start": "2026-04-14T18:22:17.764Z",
+    "end": "2026-04-14T18:39:29.280Z",
+    "actor": null,
+    "target": "capture-tool#47",
+    "label": "Commented on issue #47 in capture-tool",
+    "content": {
+      "action": "comment",
+      "body": "the modal reminder should present in whichever window is frontmost, not only the app's own window — otherwise users miss it when they're in the browser"
+    },
+    "source_refs": {
+      "raw_file": "raw/github.json",
+      "index": 1
+    },
+    "duration_sec": 1032
+  },
+  {
+    "source": "recording",
+    "start": "2026-04-14T18:39:24.122Z",
+    "end": "2026-04-14T18:40:05.738Z",
+    "actor": null,
+    "target": "[project]: web page",
+    "label": "Recorded (4 windows) — [project]: web page",
+    "content": {
+      "segments": [
+        {
+          "segment_start": 1776191964122,
+          "segment_end": 1776192005738,
+          "gif_path": "recordings/gifs/session-1784553384122/1784553384122.gif"
+        }
+      ]
+    },
+    "source_refs": {
+      "raw_file": "raw/recording.json",
+      "index": 12
+    },
+    "duration_sec": 42
+  },
+  {
+    "source": "recording",
+    "start": "2026-04-14T19:07:26.427Z",
+    "end": "2026-04-14T19:07:48.936Z",
+    "actor": null,
+    "target": "[project]: web page",
+    "label": "Recorded (4 windows) — [project]: web page",
+    "content": {
+      "segments": [
+        {
+          "segment_start": 1776193646427,
+          "segment_end": 1776193668936,
+          "gif_path": "recordings/gifs/session-1784553384122/1784555066427.gif"
+        }
+      ]
+    },
+    "source_refs": {
+      "raw_file": "raw/recording.json",
+      "index": 17
+    },
+    "duration_sec": 23
+  },
+  {
+    "source": "recording",
+    "start": "2026-04-14T19:22:18.387Z",
+    "end": "2026-04-14T19:27:18.779Z",
+    "actor": null,
+    "target": "[project]: web page",
+    "label": "Recorded (4 windows) — [project]: web page",
+    "content": {
+      "segments": [
+        {
+          "segment_start": 1776194538387,
+          "segment_end": 1776194838779,
+          "gif_path": "recordings/gifs/session-1784553384122/1784555958387.gif"
+        }
+      ]
+    },
+    "source_refs": {
+      "raw_file": "raw/recording.json",
+      "index": 19
+    },
+    "duration_sec": 300
+  },
+  {
+    "source": "recording",
+    "start": "2026-04-14T19:32:19.191Z",
+    "end": "2026-04-14T19:37:19.554Z",
+    "actor": null,
+    "target": "[project]: web page",
+    "label": "Recorded (4 windows) — [project]: web page",
+    "content": {
+      "segments": [
+        {
+          "segment_start": 1776195139191,
+          "segment_end": 1776195439554,
+          "gif_path": "recordings/gifs/session-1784553384122/1784556258780.gif"
+        }
+      ]
+    },
+    "source_refs": {
+      "raw_file": "raw/recording.json",
+      "index": 20
+    },
+    "duration_sec": 300
+  },
+  {
+    "source": "recording",
+    "start": "2026-04-14T19:32:19.191Z",
+    "end": "2026-04-14T19:37:19.554Z",
+    "actor": null,
+    "target": "[project]: web page",
+    "label": "Recorded (4 windows) — [project]: web page",
+    "content": {
+      "segments": [
+        {
+          "segment_start": 1784556559191,
+          "segment_end": 1784556859554,
+          "gif_path": "recordings/gifs/session-1784553384122/1784556559191.gif"
+        }
+      ]
+    },
+    "source_refs": {
+      "raw_file": "raw/recording.json",
+      "index": 21
+    },
+    "duration_sec": 300
+  }
+]
