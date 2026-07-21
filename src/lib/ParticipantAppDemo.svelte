@@ -1,5 +1,5 @@
 <script lang="ts">
-    // Interactive mock of the ParticipantApp (DataCollection) macOS app.
+    // Interactive mock of the ParticipantApp (SciFlowCollection) macOS app.
     // Everything shown is synthetic demo data — no real participant streams.
 
     const tabs = [

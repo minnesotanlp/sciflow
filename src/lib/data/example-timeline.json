@@ -1,0 +1,34 @@
+{
+    "milestones": [
+        { "start": 0, "end": 90, "label": "Scope the idea & run a pilot", "l1": "Foraging" },
+        { "start": 90, "end": 240, "label": "Build the pipeline & collect data", "l1": "Schematizing" },
+        { "start": 240, "end": 330, "label": "Analyze & write the paper", "l1": "Production" },
+        { "start": 330, "end": 365, "label": "Submit & revise", "l1": "Marshalling" }
+    ],
+    "writing": [
+        { "start": 10, "end": 35, "label": "Proposal draft", "l3": "Drafting", "l2": "Translate" },
+        { "start": 60, "end": 83, "label": "Related-work notes", "l3": "Reading", "l2": "Search" },
+        { "start": 150, "end": 185, "label": "Methods section, drafted during collection", "l3": "Drafting", "l2": "Translate" },
+        { "start": 240, "end": 305, "label": "Full draft", "l3": "Drafting", "l2": "Translate" },
+        { "start": 330, "end": 365, "label": "Rebuttal & camera-ready", "l3": "Revision", "l2": "Translate" }
+    ],
+    "code": [
+        { "start": 20, "end": 60, "label": "Pilot scripts — just two conditions", "l3": "Drafting", "l2": "Assemble" },
+        { "start": 90, "end": 160, "label": "Data pipeline + validation checks", "l3": "Drafting", "l2": "Assemble" },
+        { "start": 160, "end": 235, "label": "Versioned experiment runs", "l3": "Drafting", "l2": "Monitor" },
+        { "start": 240, "end": 295, "label": "Analysis notebooks", "l3": "Drafting", "l2": "Translate" }
+    ],
+    "comms": [
+        { "start": 0, "end": 30, "label": "Project kickoff", "l3": "Communicate", "l2": "Assemble" },
+        { "start": 55, "end": 85, "label": "Advisor pilot feedback: \u201cthe data is too noisy\u201d", "l3": "Communicate", "l2": "Monitor" },
+        { "start": 140, "end": 175, "label": "Collaborator sync on the annotation codebook", "l3": "Communicate", "l2": "Assemble" },
+        { "start": 300, "end": 330, "label": "Internal review of the draft", "l3": "Communicate", "l2": "Monitor" },
+        { "start": 330, "end": 355, "label": "Reviewer-response plan", "l3": "Planning", "l2": "Assemble" }
+    ],
+    "ai": [
+        { "start": 15, "end": 48, "label": "Literature triage & summaries", "l3": "Reading", "l2": "Search" },
+        { "start": 105, "end": 150, "label": "Refactor the pipeline with Claude Code", "l3": "Revision", "l2": "Translate" },
+        { "start": 245, "end": 292, "label": "Figure & table generation", "l3": "Drafting", "l2": "Translate" },
+        { "start": 333, "end": 358, "label": "Drafting the rebuttal", "l3": "Drafting", "l2": "Translate" }
+    ]
+}
