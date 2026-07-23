@@ -83,7 +83,7 @@
     });
 </script>
 
-<div class="anno-figure">
+<div class="anno-figure example-figure">
     {#if loaded && beats.length === 0}
         <p class="empty">No beats in story-data/beats.json.</p>
     {/if}
@@ -132,6 +132,10 @@
 </div>
 
 <style>
+    .example-figure {
+        height: 380px;
+    }
+
     /* row heights (shared by labels + tracks) */
     :global(.h-months) {
         flex: 26 1 0;

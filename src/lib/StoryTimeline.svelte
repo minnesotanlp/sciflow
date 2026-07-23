@@ -148,8 +148,9 @@
                 {/if}
                 {#each beats as beat, i (beat.start + beat.source + i)}
                     <div class="row" use:collectRow={i}>
-                        <div class="row-time">{fmtTime(beat.start)}</div>
                         <div class="row-connector"><span class="row-dot" style="background:var(--series-{beat.source})"></span></div>
+                        <div class="row-main">
+                        <div class="row-time">{fmtTime(beat.start)}</div>
                         <div class="card">
                             <div class="card-header">
                                 <span class="card-ic" style="color:var(--series-{beat.source})">
@@ -245,6 +246,7 @@
                                 </div>
                             {/if}
                         </div>
+                        </div>
                     </div>
                 {/each}
             </div>
@@ -267,6 +269,7 @@
         --status-critical: #d64541;
 
         width: 100%;
+        height: 560px;
         color: var(--text-primary);
         font-family: var(--sans, "Segoe UI", "Helvetica Neue", Arial, sans-serif);
     }
@@ -339,16 +342,18 @@
     }
     .row {
         display: grid;
-        grid-template-columns: 112px 20px 1fr;
+        grid-template-columns: 20px 1fr;
         column-gap: 0;
         transition: opacity 220ms ease;
     }
+    .row-main {
+        min-width: 0;
+    }
     .row-time {
-        padding-top: 4px;
+        padding: 0 0 4px 2px;
         font-size: 11px;
         color: var(--text-muted);
-        text-align: right;
-        padding-right: 10px;
+        text-align: left;
         white-space: nowrap;
     }
     .row-connector {
