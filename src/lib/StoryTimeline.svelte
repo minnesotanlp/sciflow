@@ -7,30 +7,8 @@
     // any backend.
     import { onMount, onDestroy } from "svelte";
     import { base } from "$app/paths";
-
-    type ChainStep = { lane: string; summary: string; editType?: string | null };
-
-    type Beat = {
-        source: "recording" | "claude_code" | "slack" | "google_drive" | "github" | "overleaf";
-        start: string;
-        end: string;
-        duration_sec: number;
-        actor?: string | null;
-        target?: string | null;
-        label: string;
-        content: any;
-    };
-
-    // Same icon paths as the "Currently supported integrations" cards (streams
-    // array in +page.svelte) — kept in sync by hand since the two don't share state.
-    const SOURCE_META: Record<Beat["source"], { label: string; icon: string }> = {
-        google_drive: { label: "Google Drive", icon: "M10 4h4l2 3h8v13a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h6Z" },
-        slack: { label: "Slack", icon: "M8 4h12a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-9l-5 5V6a2 2 0 0 1 2-2Z" },
-        github: { label: "GitHub", icon: "M9 4a3 3 0 1 1-2 5.2V15a4 4 0 0 0 4 4h3.3a3 3 0 1 1 0 2H11a6 6 0 0 1-6-6V9.2A3 3 0 0 1 9 4Zm10 0a3 3 0 1 1-1 5.83V12h-2V9.83A3 3 0 0 1 19 4Z" },
-        overleaf: { label: "Overleaf", icon: "M8 2h10l4 4v18a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2Zm2 8h8v2h-8v-2Zm0 4h8v2h-8v-2Zm0 4h6v2h-6v-2Z" },
-        claude_code: { label: "Claude Code", icon: "M4 5h20a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2Zm3 5 4 3.5L7 17v-2.4l2.2-1.1L7 12.4V10Zm7 6h6v2h-6v-2Z" },
-        recording: { label: "Recording", icon: "M4 4h20a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-8v2h4v2H8v-2h4v-2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2Z" },
-    };
+    import { SOURCE_META, type Beat, type ChainStep } from "$lib/beats";
+    import { timelineFocus, setFocus } from "$lib/timelineFocus.svelte";
 
     const CHAIN_ICON: Record<string, string> = { user_prompt: "👤", assistant_reply: "🤖", tool_call: "🔧" };
 
@@ -88,14 +66,27 @@
     function applyFade() {
         if (!boxEl) return;
         const boxRect = boxEl.getBoundingClientRect();
-        for (const row of rowEls) {
+        const centerY = boxRect.top + boxRect.height / 2;
+        let closestIdx = -1;
+        let closestDist = Infinity;
+        for (let i = 0; i < rowEls.length; i++) {
+            const row = rowEls[i];
             if (!row) continue;
             const r = row.getBoundingClientRect();
             const distTop = r.bottom - boxRect.top;
             const distBottom = boxRect.bottom - r.top;
             const nearest = Math.min(distTop, distBottom, FADE_ZONE_PX);
             row.style.opacity = String(Math.max(0, Math.min(1, nearest / FADE_ZONE_PX)));
+
+            const dist = Math.abs((r.top + r.bottom) / 2 - centerY);
+            if (dist < closestDist) {
+                closestDist = dist;
+                closestIdx = i;
+            }
         }
+        // Tell ExampleTimeline which entry is focal — setFocus() no-ops if
+        // it's already the shared focus, so this is cheap once scrolling settles.
+        if (closestIdx !== -1) setFocus(closestIdx, "vertical");
     }
 
     function tick(now: number) {
@@ -122,6 +113,15 @@
         raf = requestAnimationFrame(tick);
     });
 
+    // React to a block being clicked in the horizontal timeline.
+    $effect(() => {
+        if (timelineFocus.source !== "horizontal" || timelineFocus.index === null) return;
+        const row = rowEls[timelineFocus.index];
+        if (!row) return;
+        pauseTemporarily();
+        row.scrollIntoView({ behavior: "smooth", block: "center" });
+    });
+
     onDestroy(() => {
         // onDestroy also fires during SSR teardown, where requestAnimationFrame
         // (and raf) never got set up by onMount — guard so that doesn't throw.
@@ -130,18 +130,7 @@
     });
 </script>
 
-<div class="viz-root">
-    <div class="legend">
-        {#each Object.entries(SOURCE_META) as [source, meta] (source)}
-            <span class="legend-item">
-                <span class="legend-ic" style="color:var(--series-{source})">
-                    <svg viewBox="0 0 28 28" aria-hidden="true"><path d={meta.icon} /></svg>
-                </span>
-                {meta.label}
-            </span>
-        {/each}
-    </div>
-
+<div class="viz-root anno-figure">
     <div class="box" bind:this={boxEl}>
         <div class="fade fade-top"></div>
         <div
@@ -277,13 +266,6 @@
         --status-good: #1a7f37;
         --status-critical: #d64541;
 
-        --series-google_drive: #34a853;
-        --series-github: #8b5cf6;
-        --series-slack: #e01e5a;
-        --series-overleaf: #4c9aff;
-        --series-recording: #f48425;
-        --series-claude_code: #eab308;
-
         width: 100%;
         color: var(--text-primary);
         font-family: var(--sans, "Segoe UI", "Helvetica Neue", Arial, sans-serif);
@@ -301,12 +283,6 @@
             --border: #3a3a3c;
             --status-good: #37c76b;
             --status-critical: #e66767;
-            --series-google_drive: #34a853;
-            --series-github: #8b5cf6;
-            --series-slack: #e01e5a;
-            --series-overleaf: #4c9aff;
-            --series-recording: #f48425;
-            --series-claude_code: #eab308;
         }
     }
     :root[data-theme="dark"] .viz-root {
@@ -320,41 +296,12 @@
         --border: #3a3a3c;
         --status-good: #37c76b;
         --status-critical: #e66767;
-        --series-google_drive: #34a853;
-        --series-github: #8b5cf6;
-        --series-slack: #e01e5a;
-        --series-overleaf: #4c9aff;
-        --series-recording: #f48425;
-        --series-claude_code: #eab308;
-    }
-
-    .legend {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 14px;
-        padding-bottom: 12px;
-        margin-bottom: 12px;
-        font-size: 12px;
-        color: var(--text-secondary);
-    }
-    .legend-item {
-        display: inline-flex;
-        align-items: center;
-        gap: 5px;
-    }
-    .legend-ic {
-        display: inline-flex;
-        flex: none;
-    }
-    .legend-ic svg {
-        width: 13px;
-        height: 13px;
-        fill: currentColor;
     }
 
     .box {
         position: relative;
-        height: 480px;
+        flex: 1;
+        min-height: 0;
         background: var(--surface-1);
         border: 1px solid var(--border);
         border-radius: 14px;

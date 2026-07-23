@@ -3,6 +3,7 @@
     import { base } from "$app/paths";
     import ParticipantAppDemo from "$lib/ParticipantAppDemo.svelte";
     import StoryTimeline from "$lib/StoryTimeline.svelte";
+    import ExampleTimeline from "$lib/ExampleTimeline.svelte";
 
     // ---- Team: roles, contacts, accents ----
     const team = [
@@ -111,7 +112,7 @@
         },
         {
             q: "Who owns my data?",
-            a: "The data is jointly owned by PI Dongyeop Kang and your PI (the Contributor PI). No data is publicly released without consent from you and your PI. You may participate without consenting to public release of your data.",
+            a: "Your data is co-owned by you, PI Dongyeop Kang, and your Contributor PI. No data is publicly released without consent from you. You may participate without consenting to public release of your data.",
         },
         {
             q: "Will my data contain personally identifiable information?",
@@ -207,10 +208,13 @@
                     </svg>
                     Interactive demo · synthetic data
                 </span>
-                <span>Explore the timeline below — it auto-scrolls, or scroll manually. Everything shown is demo data, not from a real participant.</span>
+                <span>Two views of the same activity: left replays it as parallel streams you can scrub through; right auto-scrolls it as a single chronological feed.</span>
             </p>
 
-            <StoryTimeline />
+            <div class="example-split">
+                <ExampleTimeline />
+                <StoryTimeline />
+            </div>
         </div>
     </section>
 
@@ -415,165 +419,6 @@
 </div>
 
 <style>
-    /* ---- SciFlow track palette (longitudinal streams) ---- */
-    :global(:root) {
-        --c-mile: #3e6b6e;
-        --c-write: #6e7150;
-        --c-code: #9aa77f;
-        --c-code-tx: #26301a;
-        --c-comm: #b0791f;
-        --c-ai: #7c5f8d;
-    }
-
-    /* row heights (shared by labels + tracks) */
-    :global(.h-months) {
-        height: 26px;
-    }
-    :global(.h-mile) {
-        height: 40px;
-    }
-    :global(.h-write),
-    :global(.h-code),
-    :global(.h-comm),
-    :global(.h-ai) {
-        height: 60px;
-    }
-
-    /* month ruler */
-    .htl-months {
-        display: flex;
-        background: var(--card);
-    }
-
-    .htl-month {
-        flex: 1 1 0;
-        display: flex;
-        align-items: center;
-        justify-content: flex-start;
-        padding-left: 7px;
-        border-right: 1px solid var(--line);
-        font-family: var(--sans);
-        font-size: 10px;
-        font-weight: 700;
-        letter-spacing: 0.06em;
-        color: var(--mute);
-    }
-
-    .htl-month:last-child {
-        border-right: none;
-    }
-
-    /* stream block colors */
-    :global(.htl-block.mile) {
-        background: var(--c-mile);
-        color: #fff;
-    }
-    :global(.htl-block.write) {
-        background: var(--c-write);
-        color: #fff;
-    }
-    :global(.htl-block.codeb) {
-        background: var(--c-code);
-        color: var(--c-code-tx);
-    }
-    :global(.htl-block.comm) {
-        background: var(--c-comm);
-        color: #fff;
-    }
-    :global(.htl-block.aib) {
-        background: var(--c-ai);
-        color: #fff;
-    }
-
-    /* two-line block content: label + annotation codes */
-    :global(.htl-block) {
-        flex-direction: column;
-        align-items: flex-start;
-        justify-content: center;
-        gap: 2px;
-    }
-
-    .htl-block-label {
-        display: -webkit-box;
-        -webkit-line-clamp: 2;
-        line-clamp: 2;
-        -webkit-box-orient: vertical;
-        overflow: hidden;
-        text-align: left;
-    }
-
-    .htl-block-code {
-        display: block;
-        width: 100%;
-        font-size: 9.5px;
-        font-weight: 500;
-        opacity: 0.72;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        text-align: left;
-    }
-
-    .htl-code-pill {
-        display: inline-flex;
-        align-items: center;
-        font-family: var(--sans);
-        font-size: 9px;
-        font-weight: 700;
-        background: rgba(255, 255, 255, 0.22);
-        border: 1px solid rgba(255, 255, 255, 0.4);
-        border-radius: 5px;
-        padding: 2px 6px;
-        margin-right: 3px;
-        box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
-    }
-
-    /* replay controls */
-    .htl-controls {
-        display: flex;
-        align-items: center;
-        gap: 14px;
-        flex-wrap: wrap;
-        margin: 0 0 14px;
-    }
-
-    .play-btn {
-        display: inline-flex;
-        align-items: center;
-        gap: 7px;
-        font-family: var(--sans);
-        font-size: 14px;
-        font-weight: 700;
-        color: #fff;
-        background: var(--clay);
-        border: 2px solid var(--clay);
-        border-radius: 10px;
-        padding: 8px 16px;
-        transition: 0.2s ease;
-    }
-
-    .play-btn:hover {
-        background: var(--clay-deep);
-        border-color: var(--clay-deep);
-    }
-
-    .play-btn svg {
-        width: 14px;
-        height: 14px;
-        fill: currentColor;
-    }
-
-    .htl-clock {
-        font-family: var(--sans);
-        font-size: 13px;
-        font-weight: 600;
-        color: var(--brown);
-        background: var(--cream);
-        border: 1px solid var(--line);
-        border-radius: 999px;
-        padding: 5px 13px;
-    }
-
     /* ---- SciFlowCollection stream cards ---- */
     .tool-grid {
         display: grid;
