@@ -1,861 +1,571 @@
 [
   {
-    "source": "overleaf",
-    "start": "2026-04-13T06:00:53.330Z",
-    "end": "2026-04-13T08:45:43.855Z",
-    "actor": null,
-    "target": "Related Work Draft",
-    "label": "Edited \"Related Work Draft\" (+1/-0)",
-    "content": {
-      "added": 1,
-      "removed": 0,
-      "diff": [
-        {
-          "marker": "+",
-          "text": "added section stub for interactive writing support tools (§2.3)"
-        }
-      ]
-    },
-    "source_refs": {
-      "raw_file": "raw/overleaf.json",
-      "index": 0
-    },
-    "duration_sec": 266871
-  },
-  {
     "source": "google_drive",
-    "start": "2026-04-13T08:46:43.855Z",
-    "end": "2026-04-13T11:46:12.533Z",
+    "phase": "Design",
+    "start": "2026-01-12T15:00:00Z",
+    "end": "2026-01-19T22:00:00Z",
+    "duration_sec": 630000,
     "actor": null,
-    "target": "Participant Recruitment Tracker",
-    "label": "Edited \"Participant Recruitment Tracker\" (+3/-0)",
+    "target": "Lab Notebook",
+    "label": "Lab notebook: the problem",
     "content": {
       "added": 3,
       "removed": 0,
       "diff": [
         {
           "marker": "+",
-          "text": "P07 – confirmed, scheduled for 4/18"
+          "text": "Drone arm vibrates at ~180 Hz while hovering. Camera footage is blurry."
         },
         {
           "marker": "+",
-          "text": "P08 – emailed consent form, waiting"
+          "text": "Idea: fill the arm with a 3D-printed lattice to absorb the vibration."
         },
         {
           "marker": "+",
-          "text": ""
+          "text": "Papers: lattices work well in simulation; few have been tested on real drones."
         }
       ]
     },
-    "source_refs": {
-      "raw_file": "raw/google_drive.json",
-      "index": 1
-    },
-    "duration_sec": 4589
-  },
-  {
-    "source": "claude_code",
-    "start": "2026-04-13T10:10:52.207Z",
-    "end": "2026-04-13T10:41:29.266Z",
-    "actor": null,
-    "target": "session a3f2c891",
-    "label": "Coding with Claude Code — for the sync module i still have some open issues that i haven’t sorted out. help me frame the problem: what exactly is wrong, propose how …",
-    "content": {
-      "prompt": "for the sync module i still have some open issues that i haven’t sorted out. help me frame the problem: what exactly is wrong, propose how …",
-      "plan": null,
-      "approved": false,
-      "diff_stats": {
-        "added": 161,
-        "removed": 91
-      },
-      "steps": [
-        {
-          "lane": "user_prompt",
-          "summary": "for the sync module i still have some open issues that i haven’t sorted out. help me frame the problem: what exactly is wrong, propose how …",
-          "editType": null
-        },
-        {
-          "lane": "assistant_reply",
-          "summary": "Here’s each issue laid out with my suggested resolution, based on what I confirmed in the codebase earlier. ## 1. Timer trigger — app activ…",
-          "editType": null
-        },
-        {
-          "lane": "user_prompt",
-          "summary": "create a dedicated plan for the timer-based triggering. in it, list all existing mechanisms for data capture, all the edge cases. and then a…",
-          "editType": null
-        },
-        {
-          "lane": "tool_call",
-          "summary": "Read /Users/dev/Projects/workspace/capture-tool/src/core/TimerBasedCaptureMonitor.ts",
-          "editType": "file_read"
-        }
-      ],
-      "extra_steps_count": 46
-    },
-    "source_refs": {
-      "raw_file": "raw/claude_code.json",
-      "index": 0
-    },
-    "duration_sec": 1837
-  },
-  {
-    "source": "github",
-    "start": "2026-04-13T10:17:12.533Z",
-    "end": "2026-04-13T15:00:20.796Z",
-    "actor": null,
-    "target": "capture-tool#main",
-    "label": "Pushed 2 commits to capture-tool#main",
-    "content": {
-      "commits": [
-        {
-          "sha": "d4a1c07",
-          "message": "refactor: extract timer logic into standalone module"
-        },
-        {
-          "sha": "e8b3f19",
-          "message": "fix: prevent duplicate triggers when app regains focus"
-        }
-      ]
-    },
-    "source_refs": {
-      "raw_file": "raw/github.json",
-      "index": 0
-    },
-    "duration_sec": 34028
-  },
-  {
-    "source": "claude_code",
-    "start": "2026-04-13T15:55:20.811Z",
-    "end": "2026-04-13T17:00:43.099Z",
-    "actor": null,
-    "target": "session a3f2c891",
-    "label": "Coding with Claude Code — condense the plan for all the finished items",
-    "content": {
-      "prompt": "condense the plan for all the finished items",
-      "plan": "{\"todos\": [{\"content\": \"A: Freeze layout grid + input selector only during active capture (not while idle)\", \"status\": \"in_progress\", \"activeForm\": \"Freezing layout grid/input selector during active capture\"}, {\"content\": \"B: Add PendingTimerTrigger to CaptureSessionManager + route scheduled starts through Capture tab\", \"status\": \"pending\", \"activeForm\": \"Adding pendingTimerTrigger and routing scheduled starts through Capture tab\"}, {\"content\": \"C: Update start confirmation wording to account for delayed launch\", \"status\": \"pending\", \"activeForm\": \"Updating start confirmation for delayed launch\"}, {\"content\": \"D: TimerBasedCaptureMonitor as ObservableObject + currentActiveTask, inject into environment, manual start auto-labels\", \"status\": \"pending\", \"activeForm\": \"Injecting currentActiveTask and manual-start auto-labeling\"}, {\"content\": \"E: Background notification on auto-finish\", \"status\": \"pending\", \"activeForm\": \"Adding background notification on auto-finish\"}, {\"content\": \"F: Auto-finish reads live task end time, not cached snapshot\", \"status\": \"pending\", \"activeForm\": \"Switching auto-finish to live task lookup\"}, {\"content\": \"G: Incremental output-metadata.json writes (isDone flag)\", \"status\": \"pending\", \"activeForm\": \"Adding incremental output-metadata.json writes\"}, {\"content\": \"build + validate verification\", \"status\": \"pending\", \"activeForm\": \"Running build and validation checks\"}]}",
-      "approved": false,
-      "diff_stats": {
-        "added": 967,
-        "removed": 626
-      },
-      "steps": [
-        {
-          "lane": "assistant_reply",
-          "summary": "Let me revise the doc with those clarifications — rolling back the scheduling recommendation, and spelling out the selector/freeze behavior.",
-          "editType": null
-        },
-        {
-          "lane": "tool_call",
-          "summary": "Ran: grep -n \"^\\*\\*3\\. \\\"Should a prompt\\|^\\*\\*1\\. \\\"When the user is mid\\|^\\*\\*4\\. \\\"Add a layout\" /Us…",
-          "editType": "shell_command"
-        },
-        {
-          "lane": "tool_call",
-          "summary": "Read /Users/dev/.claude/plans/sure-lets-go-bouncing-marble.md",
-          "editType": "file_read"
-        },
-        {
-          "lane": "tool_call",
-          "summary": "Edited /Users/dev/.claude/plans/sure-lets-go-bouncing-marble.md",
-          "editType": "file_modify"
-        }
-      ],
-      "extra_steps_count": 240
-    },
-    "source_refs": {
-      "raw_file": "raw/claude_code.json",
-      "index": 1
-    },
-    "duration_sec": 3922
-  },
-  {
-    "source": "github",
-    "start": "2026-04-13T17:05:10.000Z",
-    "end": "2026-04-13T17:12:38.000Z",
-    "actor": null,
-    "target": "capture-tool#12",
-    "label": "Opened PR #12 in capture-tool",
-    "content": {
-      "action": "opened",
-      "title": "feat: lock layout controls during active capture session",
-      "diff_stats": {
-        "added": 84,
-        "removed": 31
-      },
-      "reviewers": [
-        "collaborator-a"
-      ],
-      "files_changed": 3,
-      "diff_snippet": [
-        {
-          "file": "src/components/LayoutGrid.tsx",
-          "changes": [
-            {
-              "marker": "+",
-              "text": "  const isCapturing = useCaptureStatus();"
-            },
-            {
-              "marker": "+",
-              "text": ""
-            },
-            {
-              "marker": "+",
-              "text": "  // Disable drag-and-drop reordering while a session is active"
-            },
-            {
-              "marker": "+",
-              "text": "  const handleDragStart = useCallback((e: DragEvent) => {"
-            },
-            {
-              "marker": "+",
-              "text": "    if (isCapturing) {"
-            },
-            {
-              "marker": "+",
-              "text": "      e.preventDefault();"
-            },
-            {
-              "marker": "+",
-              "text": "      return;"
-            },
-            {
-              "marker": "+",
-              "text": "    }"
-            },
-            {
-              "marker": "+",
-              "text": "    onDragStart(e);"
-            },
-            {
-              "marker": "+",
-              "text": "  }, [isCapturing, onDragStart]);"
-            },
-            {
-              "marker": "-",
-              "text": "  const handleDragStart = useCallback(onDragStart, [onDragStart]);"
-            }
-          ]
-        },
-        {
-          "file": "src/components/InputSelector.tsx",
-          "changes": [
-            {
-              "marker": "-",
-              "text": "export function InputSelector({ sources, onSelect }: Props) {"
-            },
-            {
-              "marker": "+",
-              "text": "export function InputSelector({ sources, onSelect, disabled }: Props) {"
-            },
-            {
-              "marker": " ",
-              "text": "  return ("
-            },
-            {
-              "marker": "-",
-              "text": "    <Dropdown items={sources} onChange={onSelect}>"
-            },
-            {
-              "marker": "+",
-              "text": "    <Dropdown items={sources} onChange={onSelect} disabled={disabled}>"
-            },
-            {
-              "marker": " ",
-              "text": "      {(item) => <SourceLabel source={item} />}"
-            },
-            {
-              "marker": " ",
-              "text": "    </Dropdown>"
-            }
-          ]
-        },
-        {
-          "file": "src/hooks/useCaptureStatus.ts",
-          "changes": [
-            {
-              "marker": "+",
-              "text": "import { useContext } from 'react';"
-            },
-            {
-              "marker": "+",
-              "text": "import { CaptureContext } from '../context/CaptureContext';"
-            },
-            {
-              "marker": "+",
-              "text": ""
-            },
-            {
-              "marker": "+",
-              "text": "/**"
-            },
-            {
-              "marker": "+",
-              "text": " * Returns true when a capture session is actively recording."
-            },
-            {
-              "marker": "+",
-              "text": " * Paused sessions return false so the UI stays interactive."
-            },
-            {
-              "marker": "+",
-              "text": " */"
-            },
-            {
-              "marker": "+",
-              "text": "export function useCaptureStatus(): boolean {"
-            },
-            {
-              "marker": "+",
-              "text": "  const { state } = useContext(CaptureContext);"
-            },
-            {
-              "marker": "+",
-              "text": "  return state.status === 'capturing';"
-            },
-            {
-              "marker": "+",
-              "text": "}"
-            }
-          ]
-        }
-      ]
-    },
-    "source_refs": {
-      "raw_file": "raw/github.json",
-      "index": 2
-    },
-    "duration_sec": 448
-  },
-  {
-    "source": "claude_code",
-    "start": "2026-04-13T17:24:41.963Z",
-    "end": "2026-04-13T17:24:53.672Z",
-    "actor": null,
-    "target": "session a3f2c891",
-    "label": "Coding with Claude Code — how to launch the tool",
-    "content": {
-      "prompt": "how to launch the tool",
-      "plan": null,
-      "approved": true,
-      "diff_stats": {
-        "added": 0,
-        "removed": 0
-      },
-      "steps": [
-        {
-          "lane": "user_prompt",
-          "summary": "how to launch the tool",
-          "editType": null
-        },
-        {
-          "lane": "tool_call",
-          "summary": "Ran: cd /Users/dev/Projects/workspace/capture-tool && grep -n \"main\\|entry…",
-          "editType": "shell_command"
-        },
-        {
-          "lane": "assistant_reply",
-          "summary": "You can start the tool by running the main entry point from the project root…",
-          "editType": null
-        }
-      ],
-      "extra_steps_count": 0
-    },
-    "source_refs": {
-      "raw_file": "raw/claude_code.json",
-      "index": 2
-    },
-    "duration_sec": 12
-  },
-  {
-    "source": "claude_code",
-    "start": "2026-04-13T19:38:20.643Z",
-    "end": "2026-04-13T19:38:20.647Z",
-    "actor": null,
-    "target": "session a3f2c891",
-    "label": "Coding with Claude Code — [Request interrupted by user for tool use]",
-    "content": {
-      "prompt": "[Request interrupted by user for tool use]",
-      "plan": null,
-      "approved": false,
-      "diff_stats": {
-        "added": 0,
-        "removed": 0
-      },
-      "steps": [
-        {
-          "lane": "user_prompt",
-          "summary": "[Request interrupted by user for tool use]",
-          "editType": null
-        }
-      ],
-      "extra_steps_count": 0
-    },
-    "source_refs": {
-      "raw_file": "raw/claude_code.json",
-      "index": 3
-    },
-    "duration_sec": 0
+    "why": "The camera footage was unusable. That practical problem is where the research question came from."
   },
   {
     "source": "recording",
-    "start": "2026-04-13T19:44:05.583Z",
-    "end": "2026-04-13T19:49:06.265Z",
+    "phase": "Design",
+    "start": "2026-01-20T14:00:00Z",
+    "end": "2026-01-21T16:10:00Z",
+    "duration_sec": 94200,
     "actor": null,
-    "target": "USER: deploy videos",
-    "label": "Recorded (3 windows) — USER: deploy videos",
+    "target": "2 h 10 min",
+    "label": "Reading papers",
     "content": {
+      "summary": "Reading papers on vibration-damping lattice structures and taking notes.",
+      "apps": [
+        "PDF reader",
+        "Citation manager",
+        "Lab Notebook"
+      ],
       "segments": [
         {
-          "segment_start": 1776109445583,
-          "segment_end": 1776109746265,
-          "gif_path": "recordings/gifs/session-1784470865582/1784470865583.gif"
+          "gif_path": "recordings/synth/reading-papers.gif"
         }
       ]
-    },
-    "source_refs": {
-      "raw_file": "raw/recording.json",
-      "index": 0
-    },
-    "duration_sec": 301
+    }
+  },
+  {
+    "source": "slack",
+    "phase": "Design",
+    "start": "2026-01-23T16:30:00Z",
+    "end": "2026-01-24T18:00:00Z",
+    "duration_sec": 91800,
+    "actor": "Advisor",
+    "target": "#drone-lattice",
+    "label": "Plan agreed with advisor",
+    "content": {
+      "messages": [
+        {
+          "sender": "Researcher",
+          "text": "Plan: simulate 3 lattice designs, print the best one, test it on the shaker table."
+        },
+        {
+          "sender": "Advisor",
+          "text": "Good. Simulate first so you don't waste printer time."
+        }
+      ]
+    }
+  },
+  {
+    "source": "claude_code",
+    "phase": "Design",
+    "start": "2026-01-28T14:00:00Z",
+    "end": "2026-01-29T15:00:00Z",
+    "duration_sec": 90000,
+    "actor": null,
+    "target": "Claude Code",
+    "label": "Simulation sweep with AI help",
+    "content": {
+      "prompt": "Help me set up a simulation over 3 lattice cell sizes and report the first resonance frequency of each.",
+      "steps": [
+        {
+          "lane": "user_prompt",
+          "summary": "Help me set up a simulation over 3 lattice cell sizes and report the first resonance frequency of each."
+        },
+        {
+          "lane": "assistant_reply",
+          "summary": "Done. Predicted first resonance: 212 Hz (2 mm cells), 236 Hz (3 mm), 251 Hz (4 mm). The 3 mm design gives the best balance of stiffness and weight."
+        }
+      ]
+    }
+  },
+  {
+    "source": "github",
+    "phase": "Design",
+    "start": "2026-01-29T15:00:00Z",
+    "end": "2026-01-31T20:00:00Z",
+    "duration_sec": 190800,
+    "actor": null,
+    "target": "lattice-damper (simulation & analysis code)",
+    "label": "Saved simulation code",
+    "content": {
+      "commits": [
+        {
+          "sha": "a41c9e2",
+          "message": "Add simulation sweep over lattice cell size"
+        },
+        {
+          "sha": "7d03bb5",
+          "message": "Export predicted frequencies to a table"
+        }
+      ]
+    }
   },
   {
     "source": "google_drive",
-    "start": "2026-04-13T18:00:20.796Z",
-    "end": "2026-04-13T20:45:31.714Z",
+    "phase": "Test",
+    "start": "2026-02-12T15:00:00Z",
+    "end": "2026-02-16T21:00:00Z",
+    "duration_sec": 367200,
     "actor": null,
-    "target": "Task Board",
-    "label": "Edited \"Task Board\" (+1/-1)",
+    "target": "Lab Notebook – Shaker Test",
+    "label": "Shaker table test",
+    "content": {
+      "added": 3,
+      "removed": 0,
+      "diff": [
+        {
+          "marker": "+",
+          "text": "Printed the 3 mm lattice arm and mounted it on the shaker table."
+        },
+        {
+          "marker": "+",
+          "text": "Measured first resonance: 164 Hz. Simulation predicted 236 Hz."
+        },
+        {
+          "marker": "+",
+          "text": "That's 30% off. Rechecked the mounting; that isn't the cause."
+        }
+      ]
+    }
+  },
+  {
+    "source": "slack",
+    "phase": "Test",
+    "start": "2026-02-17T17:10:00Z",
+    "end": "2026-02-18T15:00:00Z",
+    "duration_sec": 78600,
+    "actor": "Advisor",
+    "target": "#drone-lattice",
+    "label": "Simulation and test disagree",
+    "content": {
+      "messages": [
+        {
+          "sender": "Researcher",
+          "text": "Test shows 164 Hz, simulation said 236 Hz. 30% off and I can't find the bug."
+        },
+        {
+          "sender": "Advisor",
+          "text": "It may not be a bug. Printed plastic is often softer than the datasheet says. Measure it yourself."
+        }
+      ]
+    },
+    "why": "I spent a week sure I had a coding error. It never occurred to me that the material itself was the problem.",
+    "turning_point": "Simulation and experiment disagree by 30%. The whole plan assumed the simulation was right, and now that assumption is in doubt."
+  },
+  {
+    "source": "recording",
+    "phase": "Test",
+    "start": "2026-02-18T15:00:00Z",
+    "end": "2026-02-19T18:05:00Z",
+    "duration_sec": 97500,
+    "actor": null,
+    "target": "1 h 45 min",
+    "label": "Comparing test vs. simulation",
+    "content": {
+      "summary": "Plotting the measured vibration spectrum against the simulation's prediction.",
+      "apps": [
+        "Plotting tool",
+        "Lab Notebook – Shaker Test"
+      ],
+      "segments": [
+        {
+          "gif_path": "recordings/synth/test-vs-sim.gif"
+        }
+      ]
+    }
+  },
+  {
+    "source": "google_drive",
+    "phase": "Rethink",
+    "start": "2026-02-20T15:00:00Z",
+    "end": "2026-02-26T22:00:00Z",
+    "duration_sec": 543600,
+    "actor": null,
+    "target": "Test Plan v2",
+    "label": "Rewrote the test plan",
+    "content": {
+      "added": 4,
+      "removed": 4,
+      "diff": [
+        {
+          "marker": "-",
+          "text": "Material stiffness: 3.5 GPa (from the datasheet)."
+        },
+        {
+          "marker": "+",
+          "text": "Material stiffness: measure it with pull tests on printed bars."
+        },
+        {
+          "marker": "-",
+          "text": "Next: print the final design."
+        },
+        {
+          "marker": "+",
+          "text": "Next: re-run the simulation with the measured stiffness."
+        }
+      ]
+    },
+    "why": "Measuring the material cost three extra weeks. But without it, every design would be built on a wrong number."
+  },
+  {
+    "source": "slack",
+    "phase": "Rethink",
+    "start": "2026-03-03T19:20:00Z",
+    "end": "2026-03-04T16:00:00Z",
+    "duration_sec": 74400,
+    "actor": "Co-author (materials lab)",
+    "target": "#drone-lattice",
+    "label": "Co-author: test both directions",
+    "content": {
+      "messages": [
+        {
+          "sender": "Co-author (materials lab)",
+          "text": "Print bars in two directions. Printed parts are usually stiffer along the layers than across them."
+        },
+        {
+          "sender": "Researcher",
+          "text": "Will do both."
+        }
+      ]
+    }
+  },
+  {
+    "source": "claude_code",
+    "phase": "Rethink",
+    "start": "2026-03-10T14:00:00Z",
+    "end": "2026-03-11T16:00:00Z",
+    "duration_sec": 93600,
+    "actor": null,
+    "target": "Claude Code",
+    "label": "Analyzed pull-test data",
+    "content": {
+      "prompt": "I have force and stretch data from 10 pull tests in a spreadsheet. Help me calculate each bar's stiffness and compare the two print directions.",
+      "steps": [
+        {
+          "lane": "user_prompt",
+          "summary": "I have force and stretch data from 10 pull tests in a spreadsheet. Help me calculate each bar's stiffness and compare the two print directions."
+        },
+        {
+          "lane": "assistant_reply",
+          "summary": "Along the layers: 2.6 GPa on average. Across the layers: 1.9 GPa. Both are well below the 3.5 GPa datasheet value, which explains most of the 30% gap."
+        }
+      ]
+    }
+  },
+  {
+    "source": "github",
+    "phase": "Rethink",
+    "start": "2026-03-11T16:00:00Z",
+    "end": "2026-03-13T20:00:00Z",
+    "duration_sec": 187200,
+    "actor": null,
+    "target": "lattice-damper (simulation & analysis code)",
+    "label": "Saved analysis code",
+    "content": {
+      "commits": [
+        {
+          "sha": "c92f1d0",
+          "message": "Calculate stiffness from pull-test data"
+        },
+        {
+          "sha": "e5b7a34",
+          "message": "Use measured stiffness in the simulation"
+        }
+      ]
+    }
+  },
+  {
+    "source": "recording",
+    "phase": "Rethink",
+    "start": "2026-03-17T15:00:00Z",
+    "end": "2026-03-18T16:30:00Z",
+    "duration_sec": 91800,
+    "actor": null,
+    "target": "1 h 30 min",
+    "label": "Re-ran the simulation",
+    "content": {
+      "summary": "Re-running the simulation with the measured stiffness and checking it against the test.",
+      "apps": [
+        "Simulation software",
+        "Plotting tool"
+      ],
+      "segments": [
+        {
+          "gif_path": "recordings/synth/rerun-simulation.gif"
+        }
+      ]
+    }
+  },
+  {
+    "source": "slack",
+    "phase": "Rethink",
+    "start": "2026-03-19T18:45:00Z",
+    "end": "2026-03-20T17:00:00Z",
+    "duration_sec": 80100,
+    "actor": "Advisor",
+    "target": "#drone-lattice",
+    "label": "Simulation now matches",
+    "content": {
+      "messages": [
+        {
+          "sender": "Researcher",
+          "text": "New simulation: 169 Hz. Test: 164 Hz. Within 3%!"
+        },
+        {
+          "sender": "Advisor",
+          "text": "That correction is the real contribution. Others simulating printed parts have the same problem. Make that the paper."
+        }
+      ]
+    },
+    "why": "My advisor reframed the project in one message. I'd been treating the material problem as a detour, but it was the most useful result.",
+    "turning_point": "The fix becomes the finding. The paper shifts from \"a better damper\" to \"how to simulate 3D-printed parts accurately.\""
+  },
+  {
+    "source": "claude_code",
+    "phase": "Rethink",
+    "start": "2026-03-24T14:00:00Z",
+    "end": "2026-03-25T15:30:00Z",
+    "duration_sec": 91800,
+    "actor": null,
+    "target": "Claude Code",
+    "label": "Checked all three designs",
+    "content": {
+      "prompt": "Re-run the simulation for all three cell sizes with the measured stiffness, and make a chart of predicted vs. measured frequency.",
+      "steps": [
+        {
+          "lane": "user_prompt",
+          "summary": "Re-run the simulation for all three cell sizes with the measured stiffness, and make a chart of predicted vs. measured frequency."
+        },
+        {
+          "lane": "assistant_reply",
+          "summary": "Updated predictions are within 2–4% of the tests for all three designs. Chart saved as Figure 3."
+        }
+      ]
+    }
+  },
+  {
+    "source": "github",
+    "phase": "Rethink",
+    "start": "2026-03-25T15:30:00Z",
+    "end": "2026-03-27T20:00:00Z",
+    "duration_sec": 189000,
+    "actor": null,
+    "target": "lattice-damper (simulation & analysis code)",
+    "label": "Saved updated results",
+    "content": {
+      "commits": [
+        {
+          "sha": "f1a8d22",
+          "message": "Re-run all designs with measured stiffness"
+        },
+        {
+          "sha": "b37c0e9",
+          "message": "Add predicted-vs-measured chart (Figure 3)"
+        }
+      ]
+    }
+  },
+  {
+    "source": "overleaf",
+    "phase": "Write",
+    "start": "2026-04-13T14:00:00Z",
+    "end": "2026-04-24T22:00:00Z",
+    "duration_sec": 979200,
+    "actor": null,
+    "target": "Paper Draft – Methods & Results",
+    "label": "Drafted methods & results",
+    "content": {
+      "added": 58,
+      "removed": 4,
+      "diff": [
+        {
+          "marker": "+",
+          "text": "Printed parts were 26–46% less stiff than the datasheet value."
+        },
+        {
+          "marker": "+",
+          "text": "Using the measured stiffness cut the prediction error from 30% to under 4% (Figure 3)."
+        }
+      ]
+    }
+  },
+  {
+    "source": "overleaf",
+    "phase": "Write",
+    "start": "2026-04-27T14:00:00Z",
+    "end": "2026-05-01T22:00:00Z",
+    "duration_sec": 374400,
+    "actor": null,
+    "target": "Paper Draft – Title",
+    "label": "Changed the title",
     "content": {
       "added": 1,
       "removed": 1,
       "diff": [
         {
           "marker": "-",
-          "text": "begin session → navigate to capture view → [TODO] "
+          "text": "A 3D-Printed Lattice Damper for Drone Arms"
         },
         {
           "marker": "+",
-          "text": "begin session → navigate to capture view → [TODO] lock all controls before clicking start → may need to switch to modal overlay like a confirmation dialog"
+          "text": "Why Simulations of 3D-Printed Lattices Miss, and How to Fix It"
         }
       ]
     },
-    "source_refs": {
-      "raw_file": "raw/google_drive.json",
-      "index": 3
-    },
-    "duration_sec": 71
+    "why": "Changing the title felt like admitting the original idea had failed. But this is the result people will actually use."
+  },
+  {
+    "source": "slack",
+    "phase": "Write",
+    "start": "2026-05-05T20:15:00Z",
+    "end": "2026-05-06T17:00:00Z",
+    "duration_sec": 74700,
+    "actor": "Co-author (materials lab)",
+    "target": "#drone-lattice",
+    "label": "Co-author feedback",
+    "content": {
+      "messages": [
+        {
+          "sender": "Co-author (materials lab)",
+          "text": "Figure 3 is great. Add error bars from the 10 pull tests."
+        },
+        {
+          "sender": "Researcher",
+          "text": "Adding them, then sending to my advisor Friday."
+        }
+      ]
+    }
   },
   {
     "source": "google_drive",
-    "start": "2026-04-14T02:45:31.714Z",
-    "end": "2026-04-14T04:56:59.943Z",
+    "phase": "Write",
+    "start": "2026-05-08T15:00:00Z",
+    "end": "2026-05-11T21:00:00Z",
+    "duration_sec": 280800,
     "actor": null,
-    "target": "Task Board",
-    "label": "Edited \"Task Board\" (+1/-0)",
-    "content": {
-      "added": 1,
-      "removed": 0,
-      "diff": [
-        {
-          "marker": "+",
-          "text": "stop capture → the blue highlight border persists"
-        }
-      ]
-    },
-    "source_refs": {
-      "raw_file": "raw/google_drive.json",
-      "index": 4
-    },
-    "duration_sec": 4288
-  },
-  {
-    "source": "recording",
-    "start": "2026-04-13T19:54:06.987Z",
-    "end": "2026-04-13T19:59:07.552Z",
-    "actor": null,
-    "target": "USER: deploy videos",
-    "label": "Recorded (3 windows) — USER: deploy videos",
-    "content": {
-      "segments": [
-        {
-          "segment_start": 1776110046987,
-          "segment_end": 1776110347552,
-          "gif_path": "recordings/gifs/session-1784470865582/1784471466987.gif"
-        }
-      ]
-    },
-    "source_refs": {
-      "raw_file": "raw/recording.json",
-      "index": 2
-    },
-    "duration_sec": 301
-  },
-  {
-    "source": "recording",
-    "start": "2026-04-13T20:14:08.689Z",
-    "end": "2026-04-13T20:19:09.084Z",
-    "actor": null,
-    "target": "USER: deploy videos",
-    "label": "Recorded (3 windows) — USER: deploy videos",
-    "content": {
-      "segments": [
-        {
-          "segment_start": 1776111248689,
-          "segment_end": 1776111549084,
-          "gif_path": "recordings/gifs/session-1784470865582/1784472668689.gif"
-        }
-      ]
-    },
-    "source_refs": {
-      "raw_file": "raw/recording.json",
-      "index": 6
-    },
-    "duration_sec": 300
-  },
-  {
-    "source": "recording",
-    "start": "2026-04-13T20:19:09.085Z",
-    "end": "2026-04-13T20:24:09.452Z",
-    "actor": null,
-    "target": "USER: deploy videos",
-    "label": "Recorded (3 windows) — USER: deploy videos",
-    "content": {
-      "segments": [
-        {
-          "segment_start": 1776111549085,
-          "segment_end": 1776111849452,
-          "gif_path": "recordings/gifs/session-1784470865582/1784472969085.gif"
-        }
-      ]
-    },
-    "source_refs": {
-      "raw_file": "raw/recording.json",
-      "index": 7
-    },
-    "duration_sec": 300
-  },
-  {
-    "source": "recording",
-    "start": "2026-04-13T20:24:09.452Z",
-    "end": "2026-04-13T20:29:10.308Z",
-    "actor": null,
-    "target": "USER: deploy videos",
-    "label": "Recorded (3 windows) — USER: deploy videos",
-    "content": {
-      "segments": [
-        {
-          "segment_start": 1776111849452,
-          "segment_end": 1776112150308,
-          "gif_path": "recordings/gifs/session-1784470865582/1784473269452.gif"
-        }
-      ]
-    },
-    "source_refs": {
-      "raw_file": "raw/recording.json",
-      "index": 8
-    },
-    "duration_sec": 301
-  },
-  {
-    "source": "overleaf",
-    "start": "2026-04-13T20:56:59.943Z",
-    "end": "2026-04-14T00:22:17.764Z",
-    "actor": null,
-    "target": "Related Work Draft",
-    "label": "Edited \"Related Work Draft\" (+2/-0)",
+    "target": "Submission Checklist",
+    "label": "Submitted paper",
     "content": {
       "added": 2,
       "removed": 0,
       "diff": [
         {
           "marker": "+",
-          "text": "Zheng et al. (2024) instrument editor sessions with keystroke-level replay; differs from our approach in that they do not capture cross-application context"
+          "text": "Figure 3: error bars added"
         },
         {
           "marker": "+",
-          "text": "TODO: compare granularity of behavioral signals across Table 1 systems"
+          "text": "Submitted to journal: May 11"
         }
       ]
-    },
-    "source_refs": {
-      "raw_file": "raw/overleaf.json",
-      "index": 1
-    },
-    "duration_sec": 77118
-  },
-  {
-    "source": "claude_code",
-    "start": "2026-04-13T20:58:16.892Z",
-    "end": "2026-04-13T21:33:02.480Z",
-    "actor": null,
-    "target": "session a3f2c891",
-    "label": "Coding with Claude Code — have i deployed the changes for the remove-entry backend?",
-    "content": {
-      "prompt": "have i deployed the changes for the remove-entry backend?",
-      "plan": "{\"todos\": [{\"content\": \"Rewrite handler.mjs: remove clearEntry/clearBatch, add submitRemoval + email notification\", \"status\": \"completed\", \"activeForm\": \"Rewriting handler.mjs removal-request logic\"}, {\"content\": \"Update infra/template.yaml: remove old IAM + legacy routes, add RemovalRequestApi + email policy + env var\", \"status\": \"completed\", \"activeForm\": \"Updating infra/template.yaml\"}, {\"content\": \"Add email SDK dependency to data-reader package.json\", \"status\": \"completed\", \"activeForm\": \"Adding email SDK dependency\"}, {\"content\": \"Rewrite DataReaderAPIClient: replace clearEntry/clearBatch with submitRemoval\", \"status\": \"completed\", \"activeForm\": \"Rewriting DataReaderAPIClient\"}, {\"content\": \"Rewrite ConfirmDeleteDialog into RemovalRequestDialog\", \"status\": \"completed\", \"activeForm\": \"Rewriting RemovalRequestDialog\"}, {\"content\": \"Update PlaybackView to use new dialog + submitRemoval calls\", \"status\": \"completed\", \"activeForm\": \"Updating PlaybackView\"}, {\"content\": \"build + validate verification\", \"status\": \"completed\", \"activeForm\": \"Running build verification\"}, {\"content\": \"Split sender/recipient: use ops@example.org as SENDER_EMAIL, admin@example.org as recipient\", \"status\": \"completed\", \"activeForm\": \"Splitting sender/recipient emails\"}, {\"content\": \"User: verify ops@example.org as email identity, then deploy + re-test email flow\", \"status\": \"pending\", \"activeForm\": \"Waiting on user email verification of sender + redeploy\"}]}",
-      "approved": true,
-      "diff_stats": {
-        "added": 47,
-        "removed": 32
-      },
-      "steps": [
-        {
-          "lane": "assistant_reply",
-          "summary": "No response requested.",
-          "editType": null
-        },
-        {
-          "lane": "user_prompt",
-          "summary": "have i deployed the changes for the remove-entry backend?",
-          "editType": null
-        },
-        {
-          "lane": "assistant_reply",
-          "summary": "No — only the local build has been run so far. The deploy hasn’t happened, so none of the removal-request changes are live…",
-          "editType": null
-        },
-        {
-          "lane": "user_prompt",
-          "summary": "File with same data already exists at 8a4b1e9d03c17f5b2e0a6d8cc912ef44.template, skipping upload Waiting for changeset to be created.. Error…",
-          "editType": null
-        }
-      ],
-      "extra_steps_count": 39
-    },
-    "source_refs": {
-      "raw_file": "raw/claude_code.json",
-      "index": 4
-    },
-    "duration_sec": 2086
-  },
-  {
-    "source": "slack",
-    "start": "2026-04-14T00:06:49.105Z",
-    "end": "2026-04-14T00:06:49.105Z",
-    "actor": "Mentor",
-    "target": "#C07KM42R9XP",
-    "label": "1 Slack message in #C07KM42R9XP",
-    "content": {
-      "messages": [
-        {
-          "sender": "Mentor",
-          "text": "It would be nice if we could display this kind of live dashboard view of resear"
-        }
-      ]
-    },
-    "source_refs": {
-      "raw_file": "raw/slack.json",
-      "index": [
-        0
-      ]
-    },
-    "duration_sec": 0
+    }
   },
   {
     "source": "google_drive",
-    "start": "2026-04-14T05:30:12.000Z",
-    "end": "2026-04-14T07:47:55.000Z",
+    "phase": "Revise",
+    "start": "2026-06-26T15:00:00Z",
+    "end": "2026-06-29T21:00:00Z",
+    "duration_sec": 280800,
     "actor": null,
-    "target": "Weekly Sync Notes",
-    "label": "Edited \"Weekly Sync Notes\" (+4/-0)",
+    "target": "Reviewer Comments",
+    "label": "Reviewer comments",
+    "content": {
+      "added": 2,
+      "removed": 0,
+      "diff": [
+        {
+          "marker": "+",
+          "text": "Reviewer 2: Does the correction hold for other printers or plastics?"
+        },
+        {
+          "marker": "+",
+          "text": "Plan: test a second plastic on a different printer."
+        }
+      ]
+    }
+  },
+  {
+    "source": "claude_code",
+    "phase": "Revise",
+    "start": "2026-06-30T14:00:00Z",
+    "end": "2026-07-01T17:00:00Z",
+    "duration_sec": 97200,
+    "actor": null,
+    "target": "Claude Code",
+    "label": "Planned the smallest extra test",
+    "content": {
+      "prompt": "A reviewer asks whether this works for other plastics. Help me plan the smallest test that would answer that.",
+      "steps": [
+        {
+          "lane": "user_prompt",
+          "summary": "A reviewer asks whether this works for other plastics. Help me plan the smallest test that would answer that."
+        },
+        {
+          "lane": "assistant_reply",
+          "summary": "Print 5 bars and one lattice arm in a second plastic (PETG) on a different printer. If the corrected simulation still lands within 5% of the test, that supports the method without redoing the whole study."
+        }
+      ]
+    }
+  },
+  {
+    "source": "overleaf",
+    "phase": "Revise",
+    "start": "2026-07-01T17:00:00Z",
+    "end": "2026-07-08T22:00:00Z",
+    "duration_sec": 622800,
+    "actor": null,
+    "target": "Paper Draft – Results",
+    "label": "Added second-material test",
     "content": {
       "added": 4,
       "removed": 0,
       "diff": [
         {
           "marker": "+",
-          "text": "— mentor wants live dashboard for pilot data by end of month"
-        },
-        {
-          "marker": "+",
-          "text": "— discussed dropping P03 from analysis (incomplete sessions)"
-        },
-        {
-          "marker": "+",
-          "text": "— next step: finish deletion-request backend then focus on visualization"
-        },
-        {
-          "marker": "+",
-          "text": ""
+          "text": "With PETG on a second printer, corrected predictions were within 5% of the tests."
         }
       ]
     },
-    "source_refs": {
-      "raw_file": "raw/google_drive.json",
-      "index": 7
-    },
-    "duration_sec": 1063
+    "why": "The reviewer pushed me to test something I'd been avoiding. It made the paper much stronger."
   },
   {
-    "source": "claude_code",
-    "start": "2026-04-14T05:20:25.336Z",
-    "end": "2026-04-14T06:21:36.613Z",
-    "actor": null,
-    "target": "session a3f2c891",
-    "label": "Coding with Claude Code — <task-notification> <task-id>c7d1fa3bp</task-id> <tool-use-id>toolu_01Hv9BKLNfRs57Y66Q9TzMWX</tool-use-id> <status>stopped</status> <summary…",
+    "source": "slack",
+    "phase": "Revise",
+    "start": "2026-07-10T16:00:00Z",
+    "end": "2026-07-11T12:00:00Z",
+    "duration_sec": 72000,
+    "actor": "Advisor",
+    "target": "#drone-lattice",
+    "label": "Revision submitted",
     "content": {
-      "prompt": "<task-notification> <task-id>c7d1fa3bp</task-id> <tool-use-id>toolu_01Hv9BKLNfRs57Y66Q9TzMWX</tool-use-id> <status>stopped</status> <summary…",
-      "plan": null,
-      "approved": false,
-      "diff_stats": {
-        "added": 0,
-        "removed": 0
-      },
-      "steps": [
+      "messages": [
         {
-          "lane": "assistant_reply",
-          "summary": "No response requested.",
-          "editType": null
+          "sender": "Advisor",
+          "text": "Revision looks strong. Send it."
         },
         {
-          "lane": "user_prompt",
-          "summary": "<task-notification> <task-id>c7d1fa3bp</task-id> <tool-use-id>toolu_01Hv9BKLNfRs57Y66Q9TzMWX</tool-use-id> <status>stopped</status> <summary…",
-          "editType": null
-        },
-        {
-          "lane": "user_prompt",
-          "summary": "how to run the tool",
-          "editType": null
-        },
-        {
-          "lane": "tool_call",
-          "summary": "Ran: cd /Users/dev/Projects/workspace/capture-tool && npm start…",
-          "editType": "shell_command"
-        }
-      ],
-      "extra_steps_count": 1
-    },
-    "source_refs": {
-      "raw_file": "raw/claude_code.json",
-      "index": 5
-    },
-    "duration_sec": 71
-  },
-  {
-    "source": "github",
-    "start": "2026-04-14T01:22:17.764Z",
-    "end": "2026-04-14T01:39:29.280Z",
-    "actor": null,
-    "target": "capture-tool#47",
-    "label": "Commented on issue #47 in capture-tool",
-    "content": {
-      "action": "comment",
-      "body": "the modal reminder should present in whichever window is frontmost, not only the app's own window — otherwise users miss it when they're in the browser"
-    },
-    "source_refs": {
-      "raw_file": "raw/github.json",
-      "index": 1
-    },
-    "duration_sec": 1032
-  },
-  {
-    "source": "recording",
-    "start": "2026-04-14T04:39:24.122Z",
-    "end": "2026-04-14T04:40:05.738Z",
-    "actor": null,
-    "target": "[project]: web page",
-    "label": "Recorded (4 windows) — [project]: web page",
-    "content": {
-      "segments": [
-        {
-          "segment_start": 1776191964122,
-          "segment_end": 1776192005738,
-          "gif_path": "recordings/gifs/session-1784553384122/1784553384122.gif"
+          "sender": "Researcher",
+          "text": "Submitted!"
         }
       ]
-    },
-    "source_refs": {
-      "raw_file": "raw/recording.json",
-      "index": 12
-    },
-    "duration_sec": 42
-  },
-  {
-    "source": "recording",
-    "start": "2026-04-14T04:07:26.427Z",
-    "end": "2026-04-14T04:07:48.936Z",
-    "actor": null,
-    "target": "[project]: web page",
-    "label": "Recorded (4 windows) — [project]: web page",
-    "content": {
-      "segments": [
-        {
-          "segment_start": 1776193646427,
-          "segment_end": 1776193668936,
-          "gif_path": "recordings/gifs/session-1784553384122/1784555066427.gif"
-        }
-      ]
-    },
-    "source_refs": {
-      "raw_file": "raw/recording.json",
-      "index": 17
-    },
-    "duration_sec": 23
-  },
-  {
-    "source": "recording",
-    "start": "2026-04-14T04:22:18.387Z",
-    "end": "2026-04-14T04:27:18.779Z",
-    "actor": null,
-    "target": "[project]: web page",
-    "label": "Recorded (4 windows) — [project]: web page",
-    "content": {
-      "segments": [
-        {
-          "segment_start": 1776194538387,
-          "segment_end": 1776194838779,
-          "gif_path": "recordings/gifs/session-1784553384122/1784555958387.gif"
-        }
-      ]
-    },
-    "source_refs": {
-      "raw_file": "raw/recording.json",
-      "index": 19
-    },
-    "duration_sec": 300
-  },
-  {
-    "source": "recording",
-    "start": "2026-04-14T04:32:19.191Z",
-    "end": "2026-04-14T04:37:19.554Z",
-    "actor": null,
-    "target": "[project]: web page",
-    "label": "Recorded (4 windows) — [project]: web page",
-    "content": {
-      "segments": [
-        {
-          "segment_start": 1776195139191,
-          "segment_end": 1776195439554,
-          "gif_path": "recordings/gifs/session-1784553384122/1784556258780.gif"
-        }
-      ]
-    },
-    "source_refs": {
-      "raw_file": "raw/recording.json",
-      "index": 20
-    },
-    "duration_sec": 300
-  },
-  {
-    "source": "recording",
-    "start": "2026-04-14T05:32:19.191Z",
-    "end": "2026-04-14T05:37:19.554Z",
-    "actor": null,
-    "target": "[project]: web page",
-    "label": "Recorded (4 windows) — [project]: web page",
-    "content": {
-      "segments": [
-        {
-          "segment_start": 1784556559191,
-          "segment_end": 1784556859554,
-          "gif_path": "recordings/gifs/session-1784553384122/1784556559191.gif"
-        }
-      ]
-    },
-    "source_refs": {
-      "raw_file": "raw/recording.json",
-      "index": 21
-    },
-    "duration_sec": 300
+    }
   }
 ]

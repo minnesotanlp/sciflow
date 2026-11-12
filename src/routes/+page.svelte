@@ -9,7 +9,7 @@
     const team = [
         {
             name: "Khanh Chi Le",
-            avatar: `${base}/members/khanh-chi-le.jpg`,
+            avatar: `${base}/members/khanh-chi-le-crop.png`,
             role: "Coordinator",
             sub: "Study coordinator · contact for participation",
             accent: "var(--olive)",
@@ -48,7 +48,7 @@
     ];
 
 
-    // ---- SciFlowCollection tool: the approved streams ----
+    // ---- SciFlowApp tool: the approved streams ----
     const streams = [
         {
             name: "Google Drive",
@@ -91,36 +91,33 @@
     // ---- FAQ (recruitment) ----
     const faqs = [
         {
-            q: "Why is this project happening?",
-            a: "No existing dataset captures a research project at this granularity — the full arc from first idea through publication, across every tool where the work happens, paired with the researcher's own account of what they were doing and why. SciFlow fills that gap, producing the empirical foundation for understanding how research actually unfolds and for building AI assistants grounded in real workflows.",
+            q: "Who owns this data?",
+            a: "You do. You have full control over your data. Everything we do with your data will go through you.",
         },
         {
-            q: "What data will you collect?",
-            a: "Only streams you approve: documents in approved Google Drive folders, research-related Gmail, approved Slack channels, approved GitHub repositories, approved Overleaf projects, Claude Code session logs, and recordings of approved screens. We also record the three reflection interviews where we review your activity together.",
+            q: "Is the point of this to have my job scoped by AI?",
+            a: "No. We will not give your data to a big frontier lab or AI provider to develop AI models. The goal is to understand how real research unfolds so we can build AI to support researchers like you, not to replace them. If we ever wanted to use your data to develop a model, we would ask for your consent again.",
         },
         {
-            q: "What is the time commitment?",
-            a: "Your normal research is the data — there are no extra day-to-day tasks. Beyond a short onboarding session to set up the SciFlowCollection tool, participation is three reflection interviews over the course of the study, roughly every 4 months, where we review your recorded activity together.",
+            q: "I don't want anyone watching me do something stupid or embarrassing.",
+            a: "Research is messy, and we understand that. But we believe that messy process is what's really valuable to learn from. It's also a chance to review and learn from your own workflow together — not a critique. You also have full control of what you choose to share with us: pause recording at any time, exclude any app or window from being captured, and delete any data points. For data release, you can opt out of releasing anything you don't want shared.",
         },
         {
-            q: "How much is the compensation?",
-            a: "You receive $150 at each reflection interview, for a maximum of $450 over the course of your participation.",
+            q: "I switch back and forth between work and personal all the time.",
+            a: "We account for that. For screen recording, you can select exactly which tabs or windows get recorded — your personal windows will not be recorded. The same goes for connected tools: only the specific Slack channels, Drive folders, and other items you approve are collected. And if there's ever anything you want deleted or don't want us to store, just tell us and we'll delete it.",
         },
         {
-            q: "Can I pause or stop participating?",
-            a: "Yes. You can pause or stop your participation at any time without penalty — just let us know. You can also revoke access to any individual stream (a folder, channel, repository, or screen) at any time while continuing to participate with the rest.",
+            q: "I don't want my data released to the public.",
+            a: "You have total control over your data. You can opt out of releasing any individual data point you don't want shared. Beyond de-identifying your data, we'll triple-check with you about exactly what can and can't be released before anything goes out. From our side, we hope to contribute some of the collected data back to the research community, with your consent.",
         },
         {
-            q: "Who owns my data?",
-            a: "Your data is co-owned by you, PI Dongyeop Kang, and your Contributor PI. No data is publicly released without consent from you. You may participate without consenting to public release of your data.",
+            id: "faq-after-release",
+            q: "What happens to my data after it's released publicly — can anyone use it?",
+            a: "Your data will be treated as human subject data. Public access is gated and consent-based: anyone who wants to access it has to request it and get your consent, and it can only be used for research purposes — it is not freely distributed.",
         },
         {
-            q: "Will my data contain personally identifiable information?",
-            a: "We do not publicly release personally identifiable information. We ask that you avoid recording it whenever possible — the tool only touches the folders, channels, repos, and screens you approve. If any appears in collected materials, it is removed or redacted before any broader sharing or release.",
-        },
-        {
-            q: "Will my data be used to train AI models?",
-            a: "The current purpose is to study how research workflows evolve and to evaluate AI research assistants — not to train models. If a future use case involves model training, PI Kang will contact you and obtain explicit agreement before that use. Until then, the data is not used for model training.",
+            q: "What benefits do I get out of this study?",
+            a: "Beyond compensation (co-authorship, or monetary value), you can opt in to a monthly report on your workflow with the insights we find. And if we were to ever develop a personalized, researcher-centered AI, we'll prioritize your lab. Many participants also find the tool useful for keeping their research tools and progress in one place.",
         },
     ];
 
@@ -128,6 +125,10 @@
     let faqOpen = $state(faqs.map((f) => f.a.length < 320));
     function toggleFaq(i: number) {
         faqOpen[i] = !faqOpen[i];
+    }
+    function openFaq(id: string) {
+        const i = faqs.findIndex((f) => f.id === id);
+        if (i >= 0) faqOpen[i] = true;
     }
 </script>
 
@@ -176,18 +177,29 @@
 
             <div class="hero-panel">
                 <p class="lede">
-                    Research is months of intertwined, nonlinear work — but we only ever study it in simple, linear settings: controlled tasks, retrospective interviews. SciFlow captures the full complexity: <b>tracking research trajectories in real time</b>. The goal: capture both the full trajectory of a research project and the <b>intention behind each action </b> — what researchers did, why they did it, and how it shaped what came next.
+                    We want to understand <b>how research actually unfolds in real time</b> &mdash; what strategies
+                    researchers use, what cognitive state they're in, and how that shapes the next steps.
+                    Our goal is to advance researcher-centered AI assistants: tools built to help
+                    researchers, not replace them. SciFlow is calling for your effort to do that: capturing your
+                    research in real time, through screen recording and your connected tools, from
+                    brainstorming to publication.
                 </p>
                 <div class="hero-meta">
-                    <span><b>Final outcome:</b> longitudinal research workflows — up to 12 months each — spanning CS, engineering, health sciences, and the humanities.</span>
-                    <span><b>How we study it:</b> we capture research activity across the tools where it
-                        actually happens &mdash; Overleaf, GitHub, Slack, Google Drive, Claude
-                        Code, and approved screen recordings &mdash; and align it into a single project
-                        timeline.</span>
-                    <span><b>Participate:</b> keep doing your research as usual while the SciFlowCollection
-                        tool records your approved streams. Three reflection interviews, roughly every
-                        4 months, reviewing your activity together ($150 each, up to $450).</span>
+                    <span><b>Final outcome:</b> longitudinal computational research workflows (6–12 months) — open to
+                        any field where most of the work happens on a laptop.</span>
+                    <span><b>How we study it:</b> we ask you to do screen recordings, and we passively collect activity
+                        from the tools you approve, such as Google Drive, Slack, Overleaf, GitHub, and your AI assistant (e.g.
+                        Claude Code).</span>
+                    <span><b>Participate:</b> your only responsibility is to do your research as usual. the SciFlowApp
+                        tool records your approved streams in the background. We'll have reflection interviews to review
+                        your activity together.</span>
+                    <span><b>Compensation:</b> co-authorship, or paid per month of data you contribute ($70 the first
+                        month, $30 each month after).</span>
                 </div>
+                <p class="hero-note">
+                    Questions about data ownership, what we will do with your data, or privacy?
+                    See the <a href="#faq">FAQ</a>.
+                </p>
             </div>
         </div>
     </section>
@@ -195,23 +207,14 @@
     <!-- ===================== WORKED EXAMPLE (longitudinal timeline) ===================== -->
     <section id="example" class="section section-bg">
         <div class="section-inner">
-            <h3>A research project, <span class="mk">replayed</span></h3>
+            <h3>What a research project <span class="mk">actually looks like</span></h3>
             <p>
-                An example research trajectory — reconstructed from recordings, code sessions, messages, and document edits — replayed as a single timeline.
+                Below is what the collected data looks like for a six-month mechanical engineering project. The
+                published result has a clean structure, but the real path has numerous dead ends and pivots that never
+                make it into print.
             </p>
 
-            <p class="anno-caption" style="margin-top: 18px;">
-                <span class="ai-pill">
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                        <path d="M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z"></path>
-                    </svg>
-                    Interactive demo · synthetic data
-                </span>
-                <span>Two views of the same activity: left replays it as parallel streams you can scrub through; right auto-scrolls it as a single chronological feed.</span>
-            </p>
-
-            <div class="example-split">
+            <div class="example-split" style="margin-top: 18px;">
                 <ExampleTimeline />
                 <StoryTimeline />
             </div>
@@ -219,81 +222,40 @@
     </section>
 
     <!-- ===================== TOOL ===================== -->
-    <section id="tool" class="section section-bg">
+    <section id="tool" class="section">
         <div class="section-inner">
-            <h3>The tool &mdash; <span class="mk">SciFlowCollection</span></h3>
+            <h3>The tool &mdash; <span class="mk">SciFlowApp</span></h3>
 
             <p>
-                <b>SciFlowCollection</b> is a desktop app that acts as both a recording tool and
-                a central hub for your research. Connect your existing workspace and see your edits,
-                messages, commits, and revisions in one place. It connects only to the items you
-                explicitly approve and captures your research activity in the background while
-                you work as usual.
+                We will install <b>SciFlowApp</b>, the app designed and developed by our team, on your laptop. It
+                records your screen and connects to your workspace. It is also a data central hub: everything is
+                transparent, and you can see all of your collected data in one place. You have full control over what
+                to collect, what to exclude, and what to delete.
             </p>
-
-            <h4 style="margin-top: 32px;">Currently supported integrations</h4>
-            <div class="tool-grid">
-                {#each streams as s}
-                    <div class="tool-card">
-                        <div class="tc-head">
-                            <span class="tc-ic"><svg viewBox="0 0 28 28" aria-hidden="true"><path d={s.icon} /></svg></span>
-                            <span class="tc-name">{s.name}</span>
-                        </div>
-                        <p class="tc-what">{s.what}</p>
-                        <span class="tc-scope">{s.scope}</span>
-                    </div>
-                {/each}
-            </div>
-
-            <p class="anno-caption" style="margin-top: 18px;">
-                <span class="ai-pill">
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                        <path d="M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z"></path>
-                    </svg>
-                    Interactive demo · synthetic data
-                </span>
-                <span>Explore the app below &mdash; click through the sidebar. Everything shown is demo data, not from a real participant.</span>
-            </p>
-
-            <ParticipantAppDemo />
 
             <p class="recruit-outcome">
                 You choose exactly which folders, channels, repositories, projects, and screens are
                 shared. Anything you don't approve is never collected &mdash; and you can revoke
                 access to any stream at any time.
             </p>
+
+            <ParticipantAppDemo />
         </div>
     </section>
 
     <!-- ===================== RECRUITMENT ===================== -->
-    <section id="recruitment" class="section">
+    <section id="recruitment" class="section section-bg">
         <div class="section-inner">
             <h3>Get involved &mdash; <span class="mk">recruitment</span></h3>
-            <p>
-                Help us understand how research really unfolds. You keep doing your normal research
-                while SciFlowCollection records your approved streams; we meet for three reflection
-                interviews over the course of your participation, roughly every 4 months, to
-                review your recorded activity together. You receive <b>$150 at each reflection
-                interview, up to $450 total</b> &mdash; and you can pause or stop at any time without
-                penalty.
-            </p>
-
             <div class="recruit">
-                <p class="recruit-lede">
-                    <b>If you're actively working on a research project:</b> AI research assistants
-                    are an exciting direction, and a first step is understanding how real research
-                    workflows evolve over months.
-                </p>
-
                 <div class="recruit-cols">
                     <div class="recruit-block participate">
                         <div class="rb-head">Researchers participate by:</div>
                         <div class="recruit-steps">
                             <div class="recruit-step">
-                                <div class="rs-n">Step 1 · 30 min</div>
+                                <div class="rs-n">Step 1 · 1 hour</div>
                                 <div class="rs-t">Onboarding</div>
-                                <p class="rs-d">Set up SciFlowCollection and choose which folders, channels, repos, and screens to approve.</p>
+                                <p class="rs-d">Set up SciFlowApp and choose which folders, channels, repos, and screens to approve.</p>
                                 <div class="rs-ic">
                                     <svg viewBox="0 0 96 96" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                                         <path d="M42 27 58 27 58 24C58 21.8 56.2 20 54 20L12 20C9.8 20 8 21.8 8 24L8 51C8 53.2 9.8 55 12 55L18 55 18 65 28 55 34 55 34 35C34 30.6 37.6 27 42 27Z" />
@@ -313,9 +275,9 @@
                                 </div>
                             </div>
                             <div class="recruit-step">
-                                <div class="rs-n">Step 3 · every ~4 months</div>
-                                <div class="rs-t">Reflection ×3</div>
-                                <p class="rs-d">Review your recorded activity with us. $150 at each of the three interviews.</p>
+                                <div class="rs-n">Step 3</div>
+                                <div class="rs-t">Reflection interviews</div>
+                                <p class="rs-d">Review your recorded activity with us.</p>
                                 <div class="rs-ic">
                                     <svg viewBox="0 0 96 96" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                                         <path d="M42 27 58 27 58 24C58 21.8 56.2 20 54 20L12 20C9.8 20 8 21.8 8 24L8 51C8 53.2 9.8 55 12 55L18 55 18 65 28 55 34 55 34 35C34 30.6 37.6 27 42 27Z" />
@@ -329,47 +291,22 @@
                     <div class="recruit-block first">
                         <div class="rb-head">First steps if interested:</div>
                         <ol class="recruit-first-list">
-                            <li>Fill out the interest form (below).</li>
-                            <li>Book an onboarding session (below).</li>
+                            <li>Email Chi at <a href="mailto:le000422@umn.edu?subject=SciFlow%20%E2%80%94%20onboarding">le000422@umn.edu</a> to set up onboarding.</li>
                             <li>Confirm participation with your PI.</li>
                         </ol>
                     </div>
                 </div>
             </div>
+        </div>
+    </section>
 
-            <!-- Get started CTAs -->
-            <h4 style="margin-top: 36px;">Get started</h4>
-            <div class="cta-grid">
-                <div class="side-card cta-card">
-                    <h4>1. Book an onboarding session</h4>
-                    <p>
-                        Schedule a 30-minute call to learn how the study works and set up the
-                        SciFlowCollection tool.
-                    </p>
-                    <!-- TODO: replace with the real booking link -->
-                    <a href="mailto:le000422@umn.edu?subject=SciFlow%20%E2%80%94%20onboarding" rel="noopener noreferrer">
-                        <button class="primary-btn">Book an appointment</button>
-                    </a>
-                </div>
-
-                <div class="side-card cta-card">
-                    <h4>2. Sign up</h4>
-                    <p>
-                        Fill out our short form to tell us about your research project so we can get
-                        you started.
-                    </p>
-                    <!-- TODO: replace with the real interest-form link -->
-                    <a href="mailto:le000422@umn.edu?subject=SciFlow%20%E2%80%94%20interest%20form" rel="noopener noreferrer">
-                        <button class="secondary-btn cta-btn">Fill out the form</button>
-                    </a>
-                </div>
-            </div>
-
-            <!-- FAQ -->
-            <h4 style="margin-top: 36px;">Frequently asked questions</h4>
+    <!-- ===================== FAQ ===================== -->
+    <section id="faq" class="section">
+        <div class="section-inner">
+            <h4 style="margin-top: 0;">Frequently asked questions</h4>
             <div class="faq-list">
                 {#each faqs as item, i}
-                    <div class="faq-item" class:open={faqOpen[i]}>
+                    <div class="faq-item" id={item.id} class:open={faqOpen[i]}>
                         <button class="faq-question" onclick={() => toggleFaq(i)} aria-expanded={faqOpen[i]}>
                             <span>{item.q}</span>
                             <span class="faq-icon">{faqOpen[i] ? "−" : "+"}</span>
@@ -419,82 +356,62 @@
 </div>
 
 <style>
-    /* ---- SciFlowCollection stream cards ---- */
-    .tool-grid {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 14px;
+    .hero-note {
+        margin: 16px 0 0;
+        font-family: var(--sans);
+        font-size: 14px;
+        font-style: italic;
+        color: var(--clay-deep);
+        max-width: none;
+    }
+
+    .hero-note a,
+    .recruit-first-list a {
+        color: var(--clay-deep);
+        text-decoration: underline;
+        text-underline-offset: 2px;
+    }
+
+    /* the sticky nav would otherwise cover an FAQ item jumped to from the data note */
+    .faq-item {
+        scroll-margin-top: 96px;
+    }
+
+    /* ---- SciFlowApp: supported tools + collection scope ---- */
+    .stream-chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
         margin-top: 22px;
     }
 
-    @media (max-width: 720px) {
-        .tool-grid {
-            grid-template-columns: 1fr;
-        }
-    }
-
-    .tool-card {
-        display: flex;
-        flex-direction: column;
-        gap: 8px;
+    .stream-chip {
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        padding: 6px 12px;
         border: 1px solid var(--line);
-        border-radius: 14px;
+        border-radius: 999px;
         background: var(--cream);
-        padding: 16px 18px 18px;
-    }
-
-    .tc-head {
-        display: flex;
-        align-items: center;
-        gap: 9px;
-    }
-
-    .tc-ic {
-        width: 30px;
-        height: 30px;
-        flex: none;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: 9px;
-        background: var(--card);
-        border: 1px solid var(--line);
-        color: var(--sky);
-    }
-
-    .tc-ic svg {
-        width: 17px;
-        height: 17px;
-        fill: currentColor;
-    }
-
-    .tc-name {
-        font-family: var(--serif);
-        font-size: 17px;
-        font-weight: 600;
+        font-family: var(--sans);
+        font-size: 13px;
         color: var(--espresso);
     }
 
-    .tc-what {
-        margin: 0;
-        font-size: 14px;
-        line-height: 1.5;
-        color: var(--mute);
-        max-width: none;
-        flex: 1;
+    .stream-chip svg {
+        width: 15px;
+        height: 15px;
+        flex: none;
+        fill: var(--sky);
     }
 
-    .tc-scope {
-        align-self: flex-start;
-        font-family: var(--sans);
-        font-size: 10.5px;
-        font-weight: 700;
-        letter-spacing: 0.05em;
-        text-transform: uppercase;
+    .sc-scope {
         color: var(--olive);
-        border: 1.5px solid var(--olive);
-        border-radius: 999px;
-        padding: 2px 10px;
+    }
+
+    .sc-scope::before {
+        content: "· ";
+        color: var(--mute);
     }
 
 </style>

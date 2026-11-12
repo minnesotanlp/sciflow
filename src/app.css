@@ -673,10 +673,6 @@ section h4 {
    ===================================================== */
 .recruit {
     margin-top: 22px;
-    border: 1px solid var(--line);
-    border-radius: 22px;
-    background: var(--card);
-    padding: 28px 28px 26px;
 }
 
 .recruit-lede {
@@ -837,10 +833,11 @@ section h4 {
 .recruit-outcome {
     margin: 20px 0 0;
     border-left: 4px solid var(--olive);
-    background: var(--cream);
+    background: var(--card);
     border-radius: 0 12px 12px 0;
-    padding: 14px 20px;
-    font-size: 15px;
+    padding: 16px 22px;
+    font-size: 19px;
+    line-height: 1.55;
     font-style: italic;
     color: var(--brown);
     max-width: none;
