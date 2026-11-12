@@ -10,7 +10,7 @@
     import { SOURCE_META, type Beat, type ChainStep } from "$lib/beats";
     import { timelineFocus, setFocus } from "$lib/timelineFocus.svelte";
 
-    const CHAIN_ICON: Record<string, string> = { user_prompt: "👤", assistant_reply: "🤖", tool_call: "🔧" };
+    const CHAIN_LABEL: Record<string, string> = { user_prompt: "Asked", assistant_reply: "AI replied", tool_call: "AI action" };
 
     const FADE_ZONE_PX = 70;
     const AUTOSCROLL_PX_PER_SEC = 26;
@@ -18,6 +18,11 @@
 
     let beats = $state<Beat[]>([]);
     let loaded = $state(false);
+    const phases = $derived([...new Set(beats.map((b) => b.phase).filter(Boolean))] as string[]);
+
+    function startsPhase(i: number) {
+        return !!beats[i].phase && (i === 0 || beats[i - 1].phase !== beats[i].phase);
+    }
     let boxEl: HTMLDivElement;
     let scrollerEl: HTMLDivElement;
     let rowEls: HTMLDivElement[] = [];
@@ -38,16 +43,11 @@
         return new Date(iso).toLocaleString(undefined, {
             month: "short",
             day: "numeric",
-            hour: "numeric",
-            minute: "2-digit",
         });
     }
 
-    function claudeHead(beat: Beat): ChainStep | undefined {
-        return beat.content.steps?.[0];
-    }
     function claudeChain(beat: Beat): ChainStep[] {
-        return beat.content.steps?.slice(1) ?? [];
+        return beat.content.steps ?? [];
     }
 
     let raf = 0;
@@ -150,8 +150,17 @@
                     <div class="row" use:collectRow={i}>
                         <div class="row-connector"><span class="row-dot" style="background:var(--series-{beat.source})"></span></div>
                         <div class="row-main">
+                        {#if startsPhase(i)}
+                            <div class="phase-head">
+                                <span class="phase-num">Phase {phases.indexOf(beat.phase ?? "") + 1} of {phases.length}</span>
+                                <span class="phase-name">{beat.phase}</span>
+                            </div>
+                        {/if}
                         <div class="row-time">{fmtTime(beat.start)}</div>
-                        <div class="card">
+                        {#if beat.turning_point}
+                            <div class="turning-point"><b>Turning point</b> {beat.turning_point}</div>
+                        {/if}
+                        <div class="card" class:card-tp={beat.turning_point}>
                             <div class="card-header">
                                 <span class="card-ic" style="color:var(--series-{beat.source})">
                                     <svg viewBox="0 0 28 28" aria-hidden="true"><path d={SOURCE_META[beat.source].icon} /></svg>
@@ -162,7 +171,17 @@
 
                             {#if beat.source === "recording"}
                                 <div class="detail-recording">
-                                    <img src="{base}/story-data/{beat.content.segments[0].gif_path}" alt="Recording preview" />
+                                    {#if beat.content.segments?.[0]?.gif_path}
+                                        <img src="{base}/story-data/{beat.content.segments[0].gif_path}" alt={beat.content.summary ?? "Recording preview"} loading="lazy" />
+                                    {/if}
+                                    {#if beat.content.summary}
+                                        <div class="card-detail rec-summary">{beat.content.summary}</div>
+                                    {/if}
+                                    {#if beat.content.apps?.length}
+                                        <div class="rec-apps">
+                                            {#each beat.content.apps as app}<span class="rec-app">{app}</span>{/each}
+                                        </div>
+                                    {/if}
                                 </div>
                             {:else if beat.source === "slack"}
                                 <div class="detail-slack">
@@ -171,12 +190,14 @@
                                     {/each}
                                 </div>
                             {:else if beat.source === "claude_code"}
-                                <div class="card-detail">{claudeHead(beat)?.summary ?? beat.content.prompt ?? ""}</div>
+                                {#if !claudeChain(beat).length}
+                                    <div class="card-detail">{beat.content.prompt ?? ""}</div>
+                                {/if}
                                 {#if claudeChain(beat).length || beat.content.extra_steps_count}
                                     <div class="chain">
                                         {#each claudeChain(beat) as s}
                                             <div class="chain-step">
-                                                <span class="chain-chip">{CHAIN_ICON[s.lane] ?? "•"} {s.lane.replace("_", " ")}</span>
+                                                <span class="chain-chip">{CHAIN_LABEL[s.lane] ?? s.lane.replace("_", " ")}</span>
                                                 <span class="chain-text">{s.summary}</span>
                                             </div>
                                         {/each}
@@ -187,10 +208,12 @@
                                         {/if}
                                     </div>
                                 {/if}
-                                <div class="claude-diffstats">
-                                    <span class="diff-add">+{beat.content.diff_stats.added}</span> / <span class="diff-remove">-{beat.content.diff_stats.removed}</span
-                                    >
-                                </div>
+                                {#if beat.content.diff_stats}
+                                    <div class="claude-diffstats">
+                                        <span class="diff-add">+{beat.content.diff_stats.added}</span> / <span class="diff-remove">-{beat.content.diff_stats.removed}</span
+                                        >
+                                    </div>
+                                {/if}
                             {:else if beat.source === "github"}
                                 <div class="detail-github">
                                     {#if beat.content.commits}
@@ -234,7 +257,7 @@
                             {:else}
                                 <div class="detail-diff">
                                     <div class="diff-stats-row">
-                                        <span class="diff-add">+{beat.content.added ?? 0}</span> / <span class="diff-remove">-{beat.content.removed ?? 0}</span>
+                                        <span class="diff-add">{beat.content.added ?? 0} lines added</span> · <span class="diff-remove">{beat.content.removed ?? 0} removed</span>
                                     </div>
                                     {#if beat.content.diff?.length}
                                         <div class="diff-lines">
@@ -244,6 +267,12 @@
                                         </div>
                                     {/if}
                                 </div>
+                            {/if}
+                            {#if beat.why}
+                                <blockquote class="why">
+                                    <span class="why-label">Why — from the reflection interview</span>
+                                    “{beat.why}”
+                                </blockquote>
                             {/if}
                         </div>
                         </div>
@@ -573,5 +602,88 @@
         margin-top: 8px;
         font-size: 12.5px;
         font-family: ui-monospace, monospace;
+    }
+
+    .phase-head {
+        display: flex;
+        align-items: baseline;
+        gap: 8px;
+        margin: 4px 0 10px;
+    }
+    .phase-num {
+        font-size: 10.5px;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--text-muted);
+    }
+    .phase-name {
+        font-family: var(--serif, Georgia, serif);
+        font-size: 18px;
+        font-weight: 600;
+        color: var(--text-primary);
+    }
+
+    .turning-point {
+        margin-bottom: 8px;
+        padding: 8px 12px;
+        border-radius: 8px;
+        font-size: 12.5px;
+        line-height: 1.45;
+        color: var(--text-primary);
+        background: color-mix(in oklab, var(--clay, #bc5630) 12%, transparent);
+        border: 1px solid color-mix(in oklab, var(--clay, #bc5630) 35%, transparent);
+    }
+    .turning-point b {
+        display: block;
+        font-size: 10.5px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--clay, #bc5630);
+    }
+    .card-tp {
+        border-color: color-mix(in oklab, var(--clay, #bc5630) 45%, transparent);
+    }
+
+    .why {
+        margin: 10px 0 0;
+        padding: 8px 12px;
+        border-left: 3px solid var(--clay, #bc5630);
+        border-radius: 0 6px 6px 0;
+        background: var(--surface-1);
+        font-family: var(--serif, Georgia, serif);
+        font-size: 13.5px;
+        font-style: italic;
+        line-height: 1.45;
+        color: var(--text-primary);
+    }
+    .why-label {
+        display: block;
+        margin-bottom: 2px;
+        font-family: var(--sans, sans-serif);
+        font-size: 10px;
+        font-style: normal;
+        font-weight: 800;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        color: var(--text-muted);
+    }
+
+    .detail-recording img + .rec-summary {
+        margin-top: 8px;
+    }
+    .rec-apps {
+        margin-top: 6px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 5px;
+    }
+    .rec-app {
+        font-size: 11px;
+        padding: 2px 7px;
+        border-radius: 5px;
+        background: var(--surface-1);
+        border: 1px solid var(--gridline);
+        color: var(--text-secondary);
     }
 </style>

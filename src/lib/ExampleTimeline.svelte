@@ -6,7 +6,7 @@
     // and vice versa).
     import { onMount } from "svelte";
     import { base } from "$app/paths";
-    import { SOURCE_META, computeOrigin, toSourceLanes, type Beat, type BeatSource, type LaneBlock } from "$lib/beats";
+    import { SOURCE_META, computeOrigin, toPhaseSpans, toSourceLanes, type Beat, type BeatSource, type LaneBlock } from "$lib/beats";
     import { timelineFocus, setFocus } from "$lib/timelineFocus.svelte";
 
     let beats = $state<Beat[]>([]);
@@ -21,9 +21,16 @@
     const origin = $derived(computeOrigin(beats));
     const DURATION = $derived(Math.max(origin.durationHours, 0.001)); // hours; guard /0 before load
     const lanes = $derived(toSourceLanes(beats, origin.originMs));
+    const phaseSpans = $derived(toPhaseSpans(beats, origin.originMs, DURATION));
+    const turningPoints = $derived(
+        beats.flatMap((b, beatIndex) =>
+            b.turning_point ? [{ t: (new Date(b.start).getTime() - origin.originMs) / 3_600_000, beatIndex }] : [],
+        ),
+    );
 
-    const PPH = 40; // px per hour → timeline inner width
-    const INNER_W = $derived(Math.round(DURATION * PPH));
+    const PX_PER_DAY = 18;
+    const TICK_HOURS = 7 * 24;
+    const INNER_W = $derived(Math.round((DURATION / 24) * PX_PER_DAY));
     const SOURCES = Object.keys(SOURCE_META) as BeatSource[];
 
     let scrollEl: HTMLDivElement | undefined = $state();
@@ -44,8 +51,6 @@
         return new Date(origin.originMs + t * 3_600_000).toLocaleString(undefined, {
             month: "short",
             day: "numeric",
-            hour: "numeric",
-            minute: "2-digit",
         });
     }
 
@@ -91,6 +96,9 @@
     <div class="htimeline">
         <div class="htl-body">
             <div class="htl-labels">
+                {#if phaseSpans.length}
+                    <div class="htl-lbl h-phase">Phase</div>
+                {/if}
                 <div class="htl-lbl h-months">
                     <span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 2h2v3H7V2Zm8 0h2v3h-2V2ZM4 5h16a2 2 0 0 1 2 2v13a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2Zm0 5v10h16V10H4Z"/></svg></span>Time
                 </div>
@@ -103,9 +111,20 @@
 
             <div class="htl-scroll" bind:this={scrollEl}>
                 <div class="htl-inner" style="width: {INNER_W}px">
+                    {#if phaseSpans.length}
+                        <div class="htl-track h-phase">
+                            {#each phaseSpans as p, i (p.name)}
+                                <span
+                                    class="htl-phase"
+                                    class:on={currentHour >= p.start && currentHour < p.end}
+                                    style="left: {pct(p.start)}%; width: {pct(p.end - p.start)}%"
+                                >{i + 1}. {p.name}</span>
+                            {/each}
+                        </div>
+                    {/if}
                     <div class="htl-track htl-months h-months">
-                        {#each Array(Math.max(1, Math.ceil(DURATION / 6))) as _, i}
-                            <span class="htl-month" style="left: {pct(i * 6)}%">{fmt(i * 6)}</span>
+                        {#each Array(Math.max(1, Math.ceil(DURATION / TICK_HOURS))) as _, i}
+                            <span class="htl-month" style="left: {pct(i * TICK_HOURS)}%">{fmt(i * TICK_HOURS)}</span>
                         {/each}
                     </div>
 
@@ -122,6 +141,10 @@
                                 </button>
                             {/each}
                         </div>
+                    {/each}
+
+                    {#each turningPoints as tp (tp.beatIndex)}
+                        <div class="htl-tp" style="left: {pct(tp.t)}%" title="Turning point"></div>
                     {/each}
 
                     <div class="htl-playhead" style="left: {pct(currentHour)}%"></div>
@@ -170,6 +193,10 @@
         white-space: nowrap;
     }
 
+    .htl-block {
+        min-width: 92px;
+    }
+
     .htl-block-label {
         display: -webkit-box;
         -webkit-line-clamp: 2;
@@ -177,6 +204,43 @@
         -webkit-box-orient: vertical;
         overflow: hidden;
         text-align: left;
+    }
+
+    :global(.h-phase) {
+        flex: 30 1 0;
+        min-height: 0;
+    }
+    .htl-phase {
+        position: absolute;
+        top: 4px;
+        bottom: 4px;
+        display: flex;
+        align-items: center;
+        padding: 0 8px;
+        border-left: 2px solid var(--clay);
+        background: color-mix(in oklab, var(--clay) 8%, transparent);
+        font-family: var(--serif);
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--brown);
+        white-space: nowrap;
+        overflow: hidden;
+        transition: background 0.2s ease;
+    }
+    .htl-phase.on {
+        background: color-mix(in oklab, var(--clay) 20%, transparent);
+        color: var(--espresso);
+    }
+
+    .htl-tp {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 0;
+        border-left: 2px dashed var(--clay);
+        opacity: 0.55;
+        z-index: 4;
+        pointer-events: none;
     }
 
     .empty {
